@@ -3,38 +3,689 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>HVTH PROXY</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00d9ff">
 
 <style>
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
     font-family:Arial,sans-serif;
 }
 
 body{
     min-height:100vh;
-    background:
-        radial-gradient(circle at 50% 20%,#173a70 0%,#07101f 35%,#02050b 100%);
-    color:white;
     overflow:hidden;
+    color:white;
+    background:
+        radial-gradient(circle at 50% 30%,#123d68 0%,#061323 42%,#010409 100%);
 }
 
-/* nền */
+/* GRID */
 body::before{
     content:"";
     position:fixed;
     inset:0;
     background:
-        linear-gradient(rgba(0,180,255,.08) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(0,180,255,.08) 1px,transparent 1px);
-    background-size:40px 40px;
+        linear-gradient(rgba(0,210,255,.07) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,210,255,.07) 1px,transparent 1px);
+    background-size:42px 42px;
     animation:gridMove 8s linear infinite;
     pointer-events:none;
 }
 
 @keyframes gridMove{
+    from{transform:translateY(0)}
+    to{transform:translateY(42px)}
+}
+
+/* LIGHT */
+.glow{
+    position:fixed;
+    width:320px;
+    height:320px;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:rgba(0,190,255,.12);
+    filter:blur(80px);
+}
+
+/* LOGO */
+.logo{
+    position:absolute;
+    top:38px;
+    width:100%;
+    text-align:center;
+    font-size:31px;
+    font-weight:900;
+    letter-spacing:5px;
+    color:#00d9ff;
+    text-shadow:
+        0 0 10px #00d9ff,
+        0 0 25px #008cff,
+        0 0 50px #0066ff;
+}
+
+/* START */
+.start{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:230px;
+    height:70px;
+    border-radius:18px;
+    border:2px solid #00d9ff;
+    background:rgba(0,25,50,.85);
+    color:white;
+    font-size:22px;
+    font-weight:bold;
+    letter-spacing:2px;
+    box-shadow:
+        0 0 15px #00d9ff,
+        inset 0 0 20px rgba(0,217,255,.2);
+    cursor:pointer;
+    transition:.25s;
+}
+
+.start:active{
+    transform:translate(-50%,-50%) scale(.95);
+}
+
+/* FLOAT MENU */
+.float{
+    display:none;
+    position:fixed;
+    right:22px;
+    bottom:25px;
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    border:2px solid #00d9ff;
+    background:#06192d;
+    color:#00d9ff;
+    font-size:27px;
+    box-shadow:0 0 20px #00d9ff;
+    cursor:pointer;
+    z-index:100;
+    animation:floatIn .6s ease;
+}
+
+@keyframes floatIn{
+    from{
+        opacity:0;
+        transform:scale(0) rotate(-180deg);
+    }
+    to{
+        opacity:1;
+        transform:scale(1) rotate(0);
+    }
+}
+
+/* OVERLAY */
+.overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(5px);
+    z-index:20;
+}
+
+/* PANEL */
+.panel{
+    display:none;
+    position:fixed;
+    width:90%;
+    max-width:410px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(.7);
+    padding:25px;
+    border-radius:22px;
+    border:1px solid #00d9ff;
+    background:rgba(3,12,25,.97);
+    box-shadow:
+        0 0 35px rgba(0,217,255,.5),
+        inset 0 0 25px rgba(0,150,255,.08);
+    z-index:50;
+    animation:panelIn .4s ease forwards;
+}
+
+@keyframes panelIn{
+    to{
+        transform:translate(-50%,-50%) scale(1);
+    }
+}
+
+.panel h2{
+    text-align:center;
+    margin-bottom:22px;
+    color:#00d9ff;
+    letter-spacing:3px;
+    text-shadow:0 0 15px #00d9ff;
+}
+
+/* INPUT */
+.key-input{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #147ca0;
+    outline:none;
+    background:#020914;
+    color:white;
+    font-size:16px;
+    margin-bottom:10px;
+}
+
+.key-input:focus{
+    border-color:#00d9ff;
+    box-shadow:0 0 12px rgba(0,217,255,.5);
+}
+
+.key-input::placeholder{
+    color:#78909c;
+}
+
+/* BUTTON */
+.btn{
+    width:100%;
+    padding:14px;
+    margin-top:8px;
+    border:0;
+    border-radius:12px;
+    background:linear-gradient(90deg,#0077b6,#00c6ff);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn:active{
+    transform:scale(.97);
+}
+
+/* MESSAGE */
+.message{
+    min-height:24px;
+    margin-top:13px;
+    text-align:center;
+    color:#ff5368;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.success{
+    color:#00ffb3;
+}
+
+/* GAMES */
+.games{
+    display:none;
+    margin-top:17px;
+    animation:gamesIn .4s ease;
+}
+
+@keyframes gamesIn{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.game{
+    width:100%;
+    padding:15px;
+    margin-top:10px;
+    border-radius:13px;
+    border:1px solid #00d9ff;
+    background:#07192c;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.game:active{
+    transform:scale(.97);
+}
+
+/* TRANSITION */
+#transition{
+    position:fixed;
+    inset:0;
+    background:#000;
+    opacity:0;
+    pointer-events:none;
+    z-index:9999;
+    transition:opacity .55s ease;
+}
+
+#transition.active{
+    opacity:1;
+}
+
+/* DISAPPEAR */
+.hideScene{
+    animation:hideScene .55s ease forwards;
+}
+
+@keyframes hideScene{
+    0%{
+        opacity:1;
+        transform:scale(1);
+        filter:blur(0);
+    }
+
+    60%{
+        opacity:.35;
+        transform:scale(1.08);
+        filter:blur(3px);
+    }
+
+    100%{
+        opacity:0;
+        transform:scale(.7);
+        filter:blur(12px);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="glow"></div>
+
+<div class="logo" id="logo">
+    HVTH PROXY
+</div>
+
+<button class="start" id="startBtn">
+    BẮT ĐẦU
+</button>
+
+<button class="float" id="floatBtn">
+    ☰
+</button>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="panel" id="panel">
+
+    <h2>HVTH PROXY</h2>
+
+    <input
+        id="keyInput"
+        class="key-input"
+        type="text"
+        placeholder="Nhập key..."
+        autocomplete="off"
+    >
+
+    <button class="btn" id="getKey">
+        GET KEY
+    </button>
+
+    <button class="btn" id="checkKey">
+        XÁC NHẬN KEY
+    </button>
+
+    <div class="message" id="message"></div>
+
+    <div class="games" id="games">
+
+        <button class="game" onclick="openGame('max')">
+            🎮 FREE FIRE MAX
+        </button>
+
+        <button class="game" onclick="openGame('th')">
+            🎮 FREE FIRE TH
+        </button>
+
+    </div>
+
+</div>
+
+<div id="transition"></div>
+
+<script>
+
+/* =========================
+   CẤU HÌNH
+========================= */
+
+const VALID_KEY = "HVTH-PROXY-7812";
+
+const GET_KEY_URL =
+"https://link4m.org/HPQEIsnw";
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const startBtn =
+document.getElementById("startBtn");
+
+const floatBtn =
+document.getElementById("floatBtn");
+
+const logo =
+document.getElementById("logo");
+
+const panel =
+document.getElementById("panel");
+
+const overlay =
+document.getElementById("overlay");
+
+const keyInput =
+document.getElementById("keyInput");
+
+const getKey =
+document.getElementById("getKey");
+
+const checkKey =
+document.getElementById("checkKey");
+
+const message =
+document.getElementById("message");
+
+const games =
+document.getElementById("games");
+
+const transition =
+document.getElementById("transition");
+
+
+/* =========================
+   BẮT ĐẦU
+========================= */
+
+startBtn.onclick = function(){
+
+    logo.classList.add("hideScene");
+
+    startBtn.classList.add("hideScene");
+
+    transition.classList.add("active");
+
+    setTimeout(function(){
+
+        logo.style.display = "none";
+        startBtn.style.display = "none";
+
+        floatBtn.style.display = "block";
+
+        transition.classList.remove("active");
+
+        openPanel();
+
+    },600);
+
+};
+
+
+/* =========================
+   MENU NỔI
+========================= */
+
+floatBtn.onclick = function(){
+
+    openPanel();
+
+};
+
+
+/* =========================
+   MỞ PANEL
+========================= */
+
+function openPanel(){
+
+    panel.style.display = "block";
+    overlay.style.display = "block";
+
+    message.innerHTML = "";
+    message.className = "message";
+
+    const savedKey =
+    localStorage.getItem("hvth_key");
+
+    if(savedKey === VALID_KEY){
+
+        keyInput.value = savedKey;
+
+        games.style.display = "block";
+
+        message.className =
+        "message success";
+
+        message.innerHTML =
+        "KEY HỢP LỆ";
+
+    }else{
+
+        games.style.display = "none";
+
+    }
+
+}
+
+
+/* =========================
+   ĐÓNG
+========================= */
+
+overlay.onclick = function(){
+
+    panel.style.display = "none";
+    overlay.style.display = "none";
+
+};
+
+
+/* =========================
+   GET KEY
+========================= */
+
+getKey.onclick = function(){
+
+    window.location.href =
+    GET_KEY_URL;
+
+};
+
+
+/* =========================
+   CHECK KEY
+========================= */
+
+checkKey.onclick = function(){
+
+    const key =
+    keyInput.value.trim();
+
+    if(key === VALID_KEY){
+
+        localStorage.setItem(
+            "hvth_key",
+            key
+        );
+
+        message.className =
+        "message success";
+
+        message.innerHTML =
+        "KEY HỢP LỆ";
+
+        games.style.display =
+        "block";
+
+    }else{
+
+        localStorage.removeItem(
+            "hvth_key"
+        );
+
+        games.style.display =
+        "none";
+
+        message.className =
+        "message";
+
+        message.innerHTML =
+        "KEY KHÔNG ĐÚNG HOẶC ĐÃ HẾT HẠN";
+
+    }
+
+};
+
+
+/* =========================
+   FREE FIRE
+========================= */
+
+function openGame(type){
+
+    let packageName = "";
+
+    if(type === "max"){
+        packageName =
+        "com.dts.freefiremax";
+    }
+
+    if(type === "th"){
+        packageName =
+        "com.dts.freefireth";
+    }
+
+    window.location.href =
+        "intent://#Intent;" +
+        "scheme=android-app;" +
+        "package=" +
+        packageName +
+        ";end";
+
+}
+
+
+/* =========================
+   SERVICE WORKER
+========================= */
+
+if("serviceWorker" in navigator){
+
+    window.addEventListener(
+        "load",
+        function(){
+
+            navigator.serviceWorker
+            .register("./sw.js")
+            .catch(function(error){
+
+                console.log(
+                    "Service Worker lỗi:",
+                    error
+                );
+
+            });
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>        localStorage.removeItem(
+            "hvth_key"
+        );
+
+        games.style.display =
+        "none";
+
+        message.className =
+        "message";
+
+        message.innerHTML =
+        "KEY KHÔNG ĐÚNG HOẶC ĐÃ HẾT HẠN";
+
+    }
+
+};
+
+
+/* =========================
+   FREE FIRE
+========================= */
+
+function openGame(type){
+
+    let packageName = "";
+
+    if(type === "max"){
+        packageName =
+        "com.dts.freefiremax";
+    }
+
+    if(type === "th"){
+        packageName =
+        "com.dts.freefireth";
+    }
+
+    window.location.href =
+        "intent://#Intent;" +
+        "scheme=android-app;" +
+        "package=" +
+        packageName +
+        ";end";
+
+}
+
+
+/* =========================
+   SERVICE WORKER
+========================= */
+
+if("serviceWorker" in navigator){
+
+    window.addEventListener(
+        "load",
+        function(){
+
+            navigator.serviceWorker
+            .register("./sw.js")
+            .catch(function(error){
+
+                console.log(
+                    "Service Worker lỗi:",
+                    error
+                );
+
+            });
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>@keyframes gridMove{
     from{transform:translateY(0)}
     to{transform:translateY(40px)}
 }
