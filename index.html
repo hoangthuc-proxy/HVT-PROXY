@@ -2,11 +2,22 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>HVTH PROXY</title>
 
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color"
+      content="#00d9ff">
+
 <style>
+
+/* =========================
+   RESET
+========================= */
+
 *{
     margin:0;
     padding:0;
@@ -14,278 +25,804 @@
     font-family:Arial,sans-serif;
 }
 
+
+/* =========================
+   BODY
+========================= */
+
 body{
+
     min-height:100vh;
+
     overflow:hidden;
+
     color:white;
+
     background:
-        radial-gradient(circle at 50% 30%,#123d68 0%,#061323 42%,#010409 100%);
+        radial-gradient(
+            circle at 50% 30%,
+            #123d68 0%,
+            #061323 42%,
+            #010409 100%
+        );
 }
 
+
+/* =========================
+   GRID
+========================= */
+
 body::before{
+
     content:"";
+
     position:fixed;
+
     inset:0;
+
     background:
-        linear-gradient(rgba(0,210,255,.07) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(0,210,255,.07) 1px,transparent 1px);
+        linear-gradient(
+            rgba(0,210,255,.07) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0,210,255,.07) 1px,
+            transparent 1px
+        );
+
     background-size:42px 42px;
+
     animation:gridMove 8s linear infinite;
+
     pointer-events:none;
 }
 
 @keyframes gridMove{
-    from{transform:translateY(0)}
-    to{transform:translateY(42px)}
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(42px);
+    }
+
 }
+
+
+/* =========================
+   GLOW
+========================= */
 
 .glow{
+
     position:fixed;
+
     width:320px;
     height:320px;
+
     top:50%;
     left:50%;
-    transform:translate(-50%,-50%);
+
+    transform:
+        translate(-50%,-50%);
+
     border-radius:50%;
-    background:rgba(0,190,255,.12);
+
+    background:
+        rgba(0,190,255,.12);
+
     filter:blur(80px);
+
+    pointer-events:none;
 }
 
+
+/* =========================
+   LOGO
+========================= */
+
 .logo{
+
     position:absolute;
+
     top:38px;
+
     width:100%;
+
     text-align:center;
+
     font-size:31px;
+
     font-weight:900;
+
     letter-spacing:5px;
+
     color:#00d9ff;
+
     text-shadow:
         0 0 10px #00d9ff,
         0 0 25px #008cff,
         0 0 50px #0066ff;
 }
 
+
+/* =========================
+   START BUTTON
+========================= */
+
 .start{
+
     position:absolute;
+
     top:50%;
     left:50%;
-    transform:translate(-50%,-50%);
+
+    transform:
+        translate(-50%,-50%);
+
     width:230px;
     height:70px;
+
     border-radius:18px;
+
     border:2px solid #00d9ff;
-    background:rgba(0,25,50,.85);
+
+    background:
+        rgba(0,25,50,.85);
+
     color:white;
+
     font-size:22px;
+
     font-weight:bold;
+
     letter-spacing:2px;
+
     box-shadow:
         0 0 15px #00d9ff,
-        inset 0 0 20px rgba(0,217,255,.2);
+        inset 0 0 20px
+        rgba(0,217,255,.2);
+
+    cursor:pointer;
+
+    z-index:5;
 }
 
 .start:active{
-    transform:translate(-50%,-50%) scale(.95);
+
+    transform:
+        translate(-50%,-50%)
+        scale(.95);
 }
+
+
+/* =========================
+   FLOAT MENU BUTTON
+========================= */
 
 .float{
+
     display:none;
+
     position:fixed;
+
     right:22px;
     bottom:25px;
+
     width:65px;
     height:65px;
+
     border-radius:50%;
+
     border:2px solid #00d9ff;
+
     background:#06192d;
+
     color:#00d9ff;
+
     font-size:27px;
-    box-shadow:0 0 20px #00d9ff;
-    z-index:100;
+
+    box-shadow:
+        0 0 20px #00d9ff;
+
+    cursor:pointer;
+
+    z-index:1000;
+
+    animation:floatIn .35s ease;
 }
 
+@keyframes floatIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            scale(0)
+            rotate(-180deg);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            scale(1)
+            rotate(0);
+
+    }
+
+}
+
+
+/* =========================
+   OVERLAY
+========================= */
+
 .overlay{
+
     display:none;
+
     position:fixed;
+
     inset:0;
-    background:rgba(0,0,0,.72);
+
+    background:
+        rgba(0,0,0,.72);
+
     backdrop-filter:blur(5px);
+
     z-index:20;
 }
 
+
+/* =========================
+   KEY PANEL
+========================= */
+
 .panel{
+
     display:none;
+
     position:fixed;
+
     width:90%;
+
     max-width:410px;
+
     left:50%;
     top:50%;
-    transform:translate(-50%,-50%);
+
+    transform:
+        translate(-50%,-50%);
+
     padding:25px;
+
     border-radius:22px;
+
     border:1px solid #00d9ff;
-    background:rgba(3,12,25,.97);
+
+    background:
+        rgba(3,12,25,.97);
+
     box-shadow:
-        0 0 35px rgba(0,217,255,.5),
-        inset 0 0 25px rgba(0,150,255,.08);
+        0 0 35px
+        rgba(0,217,255,.5),
+
+        inset 0 0 25px
+        rgba(0,150,255,.08);
+
     z-index:50;
+
+    animation:panelIn .25s ease;
 }
+
+@keyframes panelIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translate(-50%,-50%)
+            scale(.8);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+
+    }
+
+}
+
 
 .panel h2{
+
     text-align:center;
+
     margin-bottom:22px;
+
     color:#00d9ff;
+
     letter-spacing:3px;
-    text-shadow:0 0 15px #00d9ff;
+
+    text-shadow:
+        0 0 15px #00d9ff;
 }
 
+
+/* =========================
+   INPUT
+========================= */
+
 .key-input{
+
     width:100%;
+
     padding:15px;
+
     border-radius:12px;
+
     border:1px solid #147ca0;
+
     outline:none;
+
     background:#020914;
+
     color:white;
+
     font-size:16px;
+
     margin-bottom:10px;
 }
 
-.btn{
-    width:100%;
-    padding:14px;
-    margin-top:8px;
-    border:0;
-    border-radius:12px;
-    background:linear-gradient(90deg,#0077b6,#00c6ff);
-    color:white;
-    font-size:16px;
-    font-weight:bold;
+.key-input:focus{
+
+    border-color:#00d9ff;
+
+    box-shadow:
+        0 0 12px
+        rgba(0,217,255,.5);
 }
 
+.key-input::placeholder{
+
+    color:#78909c;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.btn{
+
+    width:100%;
+
+    padding:14px;
+
+    margin-top:8px;
+
+    border:0;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0077b6,
+            #00c6ff
+        );
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.btn:active{
+
+    transform:scale(.97);
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
 .message{
+
     min-height:24px;
+
     margin-top:13px;
+
     text-align:center;
+
     color:#ff5368;
+
     font-size:14px;
+
     font-weight:bold;
 }
 
 .success{
+
     color:#00ffb3;
 }
 
+
+/* =========================
+   GAMES
+========================= */
+
 .games{
+
     display:none;
+
     margin-top:17px;
 }
 
+
 .game{
+
     width:100%;
+
     padding:15px;
+
     margin-top:10px;
+
     border-radius:13px;
+
     border:1px solid #00d9ff;
+
     background:#07192c;
+
     color:white;
+
     font-size:16px;
+
     font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
 }
 
-.feature-menu{
+.game:active{
+
+    transform:scale(.97);
+}
+
+
+/* =========================
+   FEATURE PANEL
+========================= */
+
+.feature-panel{
+
     display:none;
-    margin-top:20px;
-    padding-top:15px;
-    border-top:1px solid rgba(0,217,255,.3);
+
+    position:fixed;
+
+    right:20px;
+    bottom:105px;
+
+    width:270px;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    border:1px solid #00d9ff;
+
+    background:
+        rgba(3,12,25,.97);
+
+    box-shadow:
+        0 0 30px
+        rgba(0,217,255,.5),
+
+        inset 0 0 20px
+        rgba(0,150,255,.08);
+
+    z-index:999;
+
+    animation:featureIn .25s ease;
 }
 
-.feature{
+@keyframes featureIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(20px)
+            scale(.85);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+/* =========================
+   FEATURE TITLE
+========================= */
+
+.feature-title{
+
+    text-align:center;
+
+    color:#00d9ff;
+
+    font-size:19px;
+
+    font-weight:900;
+
+    letter-spacing:3px;
+
+    padding-bottom:15px;
+
+    border-bottom:
+        1px solid
+        rgba(0,217,255,.25);
+
+    text-shadow:
+        0 0 10px #00d9ff;
+}
+
+
+/* =========================
+   FEATURE ROW
+========================= */
+
+.feature-row{
+
     display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:15px 5px;
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
 
-.feature-name{
-    font-size:17px;
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:16px 4px;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,.08);
+
+    color:white;
+
+    font-size:16px;
+
     font-weight:bold;
 }
+
+
+/* =========================
+   SWITCH
+========================= */
 
 .switch{
+
     position:relative;
+
     width:52px;
     height:28px;
+
+    flex-shrink:0;
 }
 
 .switch input{
+
     display:none;
 }
 
+
 .slider{
+
     position:absolute;
+
     inset:0;
+
     border-radius:30px;
+
     background:#263746;
-    border:1px solid #4c6575;
+
+    border:1px solid #506777;
+
     transition:.25s;
+
+    cursor:pointer;
 }
+
 
 .slider::before{
+
     content:"";
+
     position:absolute;
+
     width:20px;
     height:20px;
+
     left:3px;
     top:3px;
+
     border-radius:50%;
-    background:#fff;
+
+    background:white;
+
     transition:.25s;
 }
 
+
 .switch input:checked + .slider{
+
     background:#00aee8;
-    box-shadow:0 0 15px #00d9ff;
+
+    border-color:#00d9ff;
+
+    box-shadow:
+        0 0 15px #00d9ff;
 }
+
 
 .switch input:checked + .slider::before{
-    transform:translateX(24px);
+
+    transform:
+        translateX(24px);
 }
 
-.status{
-    min-height:25px;
-    margin-top:17px;
+
+/* =========================
+   STATUS
+========================= */
+
+.feature-status{
+
+    min-height:20px;
+
+    margin-top:15px;
+
     text-align:center;
+
     color:#00ffb3;
+
+    font-size:13px;
+
     font-weight:bold;
-    font-size:14px;
 }
+
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
+.close-feature{
+
+    width:100%;
+
+    margin-top:12px;
+
+    padding:10px;
+
+    border:1px solid
+        rgba(0,217,255,.5);
+
+    border-radius:10px;
+
+    background:#06192d;
+
+    color:#8eeaff;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.close-feature:active{
+
+    transform:scale(.97);
+}
+
 </style>
 </head>
 
+
 <body>
+
+
+<!-- =========================
+     BACKGROUND
+========================= -->
 
 <div class="glow"></div>
 
+
+<!-- =========================
+     LOGO
+========================= -->
+
 <div class="logo" id="logo">
+
     HVTH PROXY
+
 </div>
 
-<button class="start" id="startBtn">
+
+<!-- =========================
+     START
+========================= -->
+
+<button
+    class="start"
+    id="startBtn">
+
     BẮT ĐẦU
+
 </button>
 
-<button class="float" id="floatBtn">
+
+<!-- =========================
+     FLOAT MENU
+========================= -->
+
+<button
+    class="float"
+    id="floatBtn">
+
     ☰
+
 </button>
 
-<div class="overlay" id="overlay"></div>
 
-<div class="panel" id="panel">
+<!-- =========================
+     OVERLAY
+========================= -->
 
-    <h2>HVTH PROXY</h2>
+<div
+    class="overlay"
+    id="overlay">
+</div>
+
+
+<!-- =========================
+     MAIN PANEL
+========================= -->
+
+<div
+    class="panel"
+    id="panel">
+
+    <h2>
+        HVTH PROXY
+    </h2>
+
 
     <input
         id="keyInput"
@@ -295,202 +832,386 @@ body::before{
         autocomplete="off"
     >
 
-    <button class="btn" id="getKey">
+
+    <button
+        class="btn"
+        id="getKey">
+
         GET KEY
+
     </button>
 
-    <button class="btn" id="checkKey">
+
+    <button
+        class="btn"
+        id="checkKey">
+
         XÁC NHẬN KEY
+
     </button>
 
-    <div class="message" id="message"></div>
 
-    <div class="games" id="games">
+    <div
+        class="message"
+        id="message">
+    </div>
 
-        <button class="game" onclick="openGame('max')">
+
+    <!-- =====================
+         GAME BUTTONS
+    ====================== -->
+
+    <div
+        class="games"
+        id="games">
+
+
+        <button
+            class="game"
+            onclick="selectGame('max')">
+
             🎮 FREE FIRE MAX
+
         </button>
 
-        <button class="game" onclick="openGame('th')">
+
+        <button
+            class="game"
+            onclick="selectGame('th')">
+
             🎮 FREE FIRE TH
+
         </button>
 
-        <div class="feature-menu" id="featureMenu">
-
-            <div class="feature">
-                <span class="feature-name">Aim neck</span>
-
-                <label class="switch">
-                    <input type="checkbox" id="aimNeck">
-                    <span class="slider"></span>
-                </label>
-            </div>
-
-            <div class="feature">
-                <span class="feature-name">Esp moco</span>
-
-                <label class="switch">
-                    <input type="checkbox" id="espMoco">
-                    <span class="slider"></span>
-                </label>
-            </div>
-
-            <div class="status" id="status">
-            </div>
-
-        </div>
 
     </div>
 
 </div>
 
+
+<!-- =========================
+     FEATURE MENU
+========================= -->
+
+<div
+    class="feature-panel"
+    id="featurePanel">
+
+
+    <div class="feature-title">
+
+        HVTH PROXY
+
+    </div>
+
+
+    <!-- AIM NECK -->
+
+    <div class="feature-row">
+
+        <span>
+            Aim neck
+        </span>
+
+
+        <label class="switch">
+
+            <input
+                type="checkbox"
+                id="aimNeck">
+
+            <span class="slider"></span>
+
+        </label>
+
+    </div>
+
+
+    <!-- ESP MOCO -->
+
+    <div class="feature-row">
+
+        <span>
+            Esp moco
+        </span>
+
+
+        <label class="switch">
+
+            <input
+                type="checkbox"
+                id="espMoco">
+
+            <span class="slider"></span>
+
+        </label>
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div
+        class="feature-status"
+        id="featureStatus">
+
+    </div>
+
+
+    <!-- CLOSE -->
+
+    <button
+        class="close-feature"
+        id="closeFeature">
+
+        ĐÓNG MENU
+
+    </button>
+
+
+</div>
+
+
+
 <script>
 
-const VALID_KEY = "HVTH-PROXY-7812";
+/* =========================
+   CONFIG
+========================= */
+
+const VALID_KEY =
+    "HVTH-PROXY-7812";
+
 
 const GET_KEY_URL =
-"https://link4m.org/HPQEIsnw";
+    "https://link4m.org/HPQEIsnw";
+
+
+/* =========================
+   ELEMENTS
+========================= */
 
 const startBtn =
-document.getElementById("startBtn");
+    document.getElementById("startBtn");
+
 
 const floatBtn =
-document.getElementById("floatBtn");
+    document.getElementById("floatBtn");
+
 
 const logo =
-document.getElementById("logo");
+    document.getElementById("logo");
+
 
 const panel =
-document.getElementById("panel");
+    document.getElementById("panel");
+
 
 const overlay =
-document.getElementById("overlay");
+    document.getElementById("overlay");
+
 
 const keyInput =
-document.getElementById("keyInput");
+    document.getElementById("keyInput");
+
 
 const getKey =
-document.getElementById("getKey");
+    document.getElementById("getKey");
+
 
 const checkKey =
-document.getElementById("checkKey");
+    document.getElementById("checkKey");
+
 
 const message =
-document.getElementById("message");
+    document.getElementById("message");
+
 
 const games =
-document.getElementById("games");
+    document.getElementById("games");
 
-const featureMenu =
-document.getElementById("featureMenu");
+
+const featurePanel =
+    document.getElementById("featurePanel");
+
 
 const aimNeck =
-document.getElementById("aimNeck");
+    document.getElementById("aimNeck");
+
 
 const espMoco =
-document.getElementById("espMoco");
-
-const status =
-document.getElementById("status");
+    document.getElementById("espMoco");
 
 
-/* BẮT ĐẦU */
+const featureStatus =
+    document.getElementById("featureStatus");
 
-startBtn.onclick = function(){
 
-    logo.style.display = "none";
-    startBtn.style.display = "none";
+const closeFeature =
+    document.getElementById("closeFeature");
 
-    floatBtn.style.display = "block";
 
-    openPanel();
+/* =========================
+   START
+========================= */
+
+startBtn.onclick =
+function(){
+
+    logo.style.display =
+        "none";
+
+    startBtn.style.display =
+        "none";
+
+    floatBtn.style.display =
+        "block";
+
+    openMainPanel();
+
 };
 
 
-/* MENU NỔI */
+/* =========================
+   FLOAT BUTTON
+========================= */
 
-floatBtn.onclick = function(){
-    openPanel();
-};
+floatBtn.onclick =
+function(){
 
+    /*
+       Bấm nút nổi mới hiện
+       menu chức năng
+    */
 
-/* MỞ PANEL */
+    if(
+        featurePanel.style.display
+        === "block"
+    ){
 
-function openPanel(){
-
-    panel.style.display = "block";
-    overlay.style.display = "block";
-
-    const savedKey =
-    localStorage.getItem("hvth_key");
-
-    if(savedKey === VALID_KEY){
-
-        keyInput.value = savedKey;
-
-        games.style.display = "block";
-
-        message.className =
-        "message success";
-
-        message.innerHTML =
-        "KEY HỢP LỆ";
+        closeFeatureMenu();
 
     }else{
 
-        games.style.display = "none";
-        featureMenu.style.display = "none";
+        openFeatureMenu();
 
-        message.className = "message";
-        message.innerHTML = "";
     }
 
-    loadFeatures();
+};
+
+
+/* =========================
+   MAIN PANEL
+========================= */
+
+function openMainPanel(){
+
+    panel.style.display =
+        "block";
+
+    overlay.style.display =
+        "block";
+
+
+    const savedKey =
+        localStorage.getItem(
+            "hvth_key"
+        );
+
+
+    if(
+        savedKey === VALID_KEY
+    ){
+
+        keyInput.value =
+            savedKey;
+
+        games.style.display =
+            "block";
+
+        message.className =
+            "message success";
+
+        message.innerHTML =
+            "KEY HỢP LỆ";
+
+    }else{
+
+        games.style.display =
+            "none";
+
+        message.className =
+            "message";
+
+        message.innerHTML =
+            "";
+
+    }
+
 }
 
 
-/* ĐÓNG PANEL */
+/* =========================
+   OVERLAY
+========================= */
 
-overlay.onclick = function(){
+overlay.onclick =
+function(){
 
-    panel.style.display = "none";
-    overlay.style.display = "none";
+    panel.style.display =
+        "none";
+
+    overlay.style.display =
+        "none";
 
 };
 
 
-/* GET KEY */
+/* =========================
+   GET KEY
+========================= */
 
-getKey.onclick = function(){
+getKey.onclick =
+function(){
 
     window.location.href =
-    GET_KEY_URL;
+        GET_KEY_URL;
 
 };
 
 
-/* CHECK KEY */
+/* =========================
+   CHECK KEY
+========================= */
 
-checkKey.onclick = function(){
+checkKey.onclick =
+function(){
 
     const key =
-    keyInput.value.trim();
+        keyInput.value.trim();
 
-    if(key === VALID_KEY){
+
+    if(
+        key === VALID_KEY
+    ){
 
         localStorage.setItem(
             "hvth_key",
             key
         );
 
+
         message.className =
-        "message success";
+            "message success";
+
 
         message.innerHTML =
-        "KEY HỢP LỆ";
+            "KEY HỢP LỆ";
+
 
         games.style.display =
-        "block";
+            "block";
+
 
     }else{
 
@@ -498,41 +1219,124 @@ checkKey.onclick = function(){
             "hvth_key"
         );
 
-        games.style.display =
-        "none";
 
-        featureMenu.style.display =
-        "none";
+        games.style.display =
+            "none";
+
 
         message.className =
-        "message";
+            "message";
+
 
         message.innerHTML =
-        "KEY KHÔNG ĐÚNG HOẶC ĐÃ HẾT HẠN";
+            "KEY KHÔNG ĐÚNG HOẶC ĐÃ HẾT HẠN";
+
     }
 
 };
 
 
-/* CHỌN FREE FIRE */
+/* =========================
+   SELECT GAME
+========================= */
 
-function openGame(type){
-
-    featureMenu.style.display = "block";
-
-    status.innerHTML =
-    "Đã mở menu chức năng";
+function selectGame(type){
 
     /*
-      Chỉ mở menu giao diện.
-      Không can thiệp vào Free Fire.
+       Sau khi chọn FF MAX
+       hoặc FF TH:
+
+       1. Đóng panel key
+       2. Đóng overlay
+       3. Hiện nút menu nổi
+       4. Chưa hiện chức năng
     */
+
+
+    panel.style.display =
+        "none";
+
+    overlay.style.display =
+        "none";
+
+
+    floatBtn.style.display =
+        "block";
+
+
+    featurePanel.style.display =
+        "none";
+
+
+    featureStatus.innerHTML =
+        "";
+
+
+    if(type === "max"){
+
+        console.log(
+            "Đã chọn Free Fire MAX"
+        );
+
+    }
+
+
+    if(type === "th"){
+
+        console.log(
+            "Đã chọn Free Fire TH"
+        );
+
+    }
+
 }
 
 
-/* AIM NECK */
+/* =========================
+   OPEN FEATURE MENU
+========================= */
 
-aimNeck.onchange = function(){
+function openFeatureMenu(){
+
+    featurePanel.style.display =
+        "block";
+
+
+    loadFeatureState();
+
+}
+
+
+/* =========================
+   CLOSE FEATURE MENU
+========================= */
+
+function closeFeatureMenu(){
+
+    featurePanel.style.display =
+        "none";
+
+}
+
+
+/* =========================
+   CLOSE BUTTON
+========================= */
+
+closeFeature.onclick =
+function(){
+
+    closeFeatureMenu();
+
+};
+
+
+/* =========================
+   AIM NECK
+========================= */
+
+aimNeck.onchange =
+function(){
 
     if(this.checked){
 
@@ -541,8 +1345,9 @@ aimNeck.onchange = function(){
             "on"
         );
 
-        status.innerHTML =
-        "Đã kích hoạt chức năng Aim neck";
+
+        featureStatus.innerHTML =
+            "Đã kích hoạt chức năng Aim neck";
 
     }else{
 
@@ -551,15 +1356,21 @@ aimNeck.onchange = function(){
             "off"
         );
 
-        status.innerHTML =
-        "Đã tắt chức năng Aim neck";
+
+        featureStatus.innerHTML =
+            "Đã tắt chức năng Aim neck";
+
     }
+
 };
 
 
-/* ESP MOCO */
+/* =========================
+   ESP MOCO
+========================= */
 
-espMoco.onchange = function(){
+espMoco.onchange =
+function(){
 
     if(this.checked){
 
@@ -568,8 +1379,9 @@ espMoco.onchange = function(){
             "on"
         );
 
-        status.innerHTML =
-        "Đã kích hoạt chức năng Esp moco";
+
+        featureStatus.innerHTML =
+            "Đã kích hoạt chức năng Esp moco";
 
     }else{
 
@@ -578,31 +1390,75 @@ espMoco.onchange = function(){
             "off"
         );
 
-        status.innerHTML =
-        "Đã tắt chức năng Esp moco";
+
+        featureStatus.innerHTML =
+            "Đã tắt chức năng Esp moco";
+
     }
+
 };
 
 
-/* KHÔI PHỤC TRẠNG THÁI */
+/* =========================
+   LOAD STATE
+========================= */
 
-function loadFeatures(){
+function loadFeatureState(){
 
-    const aim =
-    localStorage.getItem("aim_neck");
+    const aimState =
+        localStorage.getItem(
+            "aim_neck"
+        );
 
-    const esp =
-    localStorage.getItem("esp_moco");
+
+    const espState =
+        localStorage.getItem(
+            "esp_moco"
+        );
+
 
     aimNeck.checked =
-    aim === "on";
+        aimState === "on";
+
 
     espMoco.checked =
-    esp === "on";
+        espState === "on";
+
+}
+
+
+/* =========================
+   SERVICE WORKER
+========================= */
+
+if(
+    "serviceWorker"
+    in navigator
+){
+
+    window.addEventListener(
+        "load",
+        function(){
+
+            navigator.serviceWorker
+                .register("./sw.js")
+                .catch(
+                    function(error){
+
+                        console.log(
+                            "Service Worker lỗi:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
 
 }
 
 </script>
 
 </body>
-    </html>
+        </html>
