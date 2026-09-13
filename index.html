@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HVTH PROXY</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 50% 20%,#173a70 0%,#07101f 35%,#02050b 100%);
+    color:white;
+    overflow:hidden;
+}
+
+/* nền */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        linear-gradient(rgba(0,180,255,.08) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,180,255,.08) 1px,transparent 1px);
+    background-size:40px 40px;
+    animation:gridMove 8s linear infinite;
+    pointer-events:none;
+}
+
+@keyframes gridMove{
+    from{transform:translateY(0)}
+    to{transform:translateY(40px)}
+}
+
+/* logo */
+.logo{
+    position:absolute;
+    top:35px;
+    width:100%;
+    text-align:center;
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:4px;
+    color:#00d9ff;
+    text-shadow:
+        0 0 10px #00d9ff,
+        0 0 30px #008cff;
+}
+
+/* nút bắt đầu */
+.start{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:230px;
+    padding:20px;
+    border:2px solid #00d9ff;
+    border-radius:18px;
+    background:rgba(0,25,50,.75);
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+    box-shadow:
+        0 0 15px #00d9ff,
+        inset 0 0 15px rgba(0,217,255,.25);
+    cursor:pointer;
+    transition:.25s;
+}
+
+.start:hover{
+    transform:translate(-50%,-50%) scale(1.05);
+}
+
+/* menu nổi */
+.float{
+    display:none;
+    position:fixed;
+    right:20px;
+    bottom:25px;
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    border:2px solid #00d9ff;
+    background:#06192d;
+    color:#00d9ff;
+    font-size:28px;
+    box-shadow:0 0 20px #00d9ff;
+    cursor:pointer;
+    z-index:20;
+}
+
+/* bảng */
+.panel{
+    display:none;
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:90%;
+    max-width:400px;
+    padding:25px;
+    border-radius:22px;
+    border:1px solid #00d9ff;
+    background:rgba(3,12,25,.96);
+    box-shadow:0 0 35px rgba(0,217,255,.45);
+    z-index:10;
+}
+
+.panel h2{
+    text-align:center;
+    color:#00d9ff;
+    margin-bottom:20px;
+}
+
+/* key */
+.key-input{
+    width:100%;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid #167ca0;
+    background:#020914;
+    color:white;
+    outline:none;
+    font-size:16px;
+    margin-bottom:12px;
+}
+
+.key-input:focus{
+    border-color:#00d9ff;
+    box-shadow:0 0 12px rgba(0,217,255,.5);
+}
+
+.btn{
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:12px;
+    background:#00aee8;
+    color:white;
+    font-weight:bold;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:8px;
+}
+
+.btn:hover{
+    background:#00d9ff;
+}
+
+/* game buttons */
+.games{
+    display:none;
+    margin-top:20px;
+}
+
+.game{
+    width:100%;
+    padding:15px;
+    margin-top:10px;
+    border-radius:12px;
+    border:1px solid #00d9ff;
+    background:#07192c;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.game:hover{
+    background:#0b2945;
+}
+
+/* thông báo */
+.message{
+    text-align:center;
+    margin-top:12px;
+    min-height:22px;
+    color:#ff5266;
+    font-weight:bold;
+}
+
+.success{
+    color:#00ffb3;
+}
+
+/* nền tối */
+.overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.7);
+    z-index:5;
+}
+</style>
+</head>
+
+<body>
+
+<div class="logo">HVTH PROXY</div>
+
+<button class="start" id="startBtn">
+    BẮT ĐẦU
+</button>
+
+<button class="float" id="floatBtn">
+    ☰
+</button>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="panel" id="panel">
+
+    <h2>HVTH PROXY</h2>
+
+    <input
+        id="keyInput"
+        class="key-input"
+        type="text"
+        placeholder="Nhập key..."
+        autocomplete="off"
+    >
+
+    <button class="btn" id="getKey">
+        GET KEY
+    </button>
+
+    <button class="btn" id="checkKey">
+        XÁC NHẬN KEY
+    </button>
+
+    <div class="message" id="message"></div>
+
+    <div class="games" id="games">
+
+        <button class="game" onclick="openGame('max')">
+            🎮 FREE FIRE MAX
+        </button>
+
+        <button class="game" onclick="openGame('th')">
+            🎮 FREE FIRE TH
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================
+   CẤU HÌNH
+========================= */
+
+const VALID_KEY = "HVTH-PROXY-7812";
+
+const GET_KEY_URL = "https://link4m.org/HPQEIsnw";
+
+
+/* =========================
+   PHẦN tử
+========================= */
+
+const startBtn = document.getElementById("startBtn");
+const floatBtn = document.getElementById("floatBtn");
+const panel = document.getElementById("panel");
+const overlay = document.getElementById("overlay");
+const keyInput = document.getElementById("keyInput");
+const checkKey = document.getElementById("checkKey");
+const getKey = document.getElementById("getKey");
+const message = document.getElementById("message");
+const games = document.getElementById("games");
+
+
+/* =========================
+   BẮT ĐẦU
+========================= */
+
+startBtn.onclick = function(){
+
+    startBtn.style.display = "none";
+    floatBtn.style.display = "block";
+
+    openPanel();
+};
+
+
+/* =========================
+   MENU NỔI
+========================= */
+
+floatBtn.onclick = function(){
+
+    openPanel();
+
+};
+
+
+/* =========================
+   MỞ PANEL
+========================= */
+
+function openPanel(){
+
+    panel.style.display = "block";
+    overlay.style.display = "block";
+
+    message.innerHTML = "";
+
+    // Kiểm tra key đã lưu
+    const savedKey = localStorage.getItem("hvth_key");
+
+    if(savedKey === VALID_KEY){
+
+        keyInput.value = savedKey;
+
+        games.style.display = "block";
+
+        message.className = "message success";
+        message.innerHTML = "KEY HỢP LỆ";
+
+    }
+
+}
+
+
+/* =========================
+   ĐÓNG PANEL
+========================= */
+
+overlay.onclick = function(){
+
+    panel.style.display = "none";
+    overlay.style.display = "none";
+
+};
+
+
+/* =========================
+   GET KEY
+========================= */
+
+getKey.onclick = function(){
+
+    window.location.href = GET_KEY_URL;
+
+};
+
+
+/* =========================
+   KIỂM TRA KEY
+========================= */
+
+checkKey.onclick = function(){
+
+    const key = keyInput.value.trim();
+
+    if(key === VALID_KEY){
+
+        localStorage.setItem("hvth_key", key);
+
+        message.className = "message success";
+        message.innerHTML = "KEY HỢP LỆ";
+
+        games.style.display = "block";
+
+    }else{
+
+        localStorage.removeItem("hvth_key");
+
+        games.style.display = "none";
+
+        message.className = "message";
+        message.innerHTML =
+            "KEY KHÔNG ĐÚNG HOẶC ĐÃ HẾT HẠN";
+
+    }
+
+};
+
+
+/* =========================
+   MỞ FREE FIRE
+========================= */
+
+function openGame(type){
+
+    let packageName = "";
+
+    if(type === "max"){
+        packageName = "com.dts.freefiremax";
+    }
+
+    if(type === "th"){
+        packageName = "com.dts.freefireth";
+    }
+
+    // Thử mở ứng dụng Android
+    window.location.href =
+        "intent://#Intent;" +
+        "scheme=android-app;" +
+        "package=" +
+        packageName +
+        ";end";
+
+}
+
+</script>
+
+</body>
+</html>
