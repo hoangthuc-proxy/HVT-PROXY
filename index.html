@@ -14,10 +14,6 @@
 
 <style>
 
-/* =========================
-   RESET
-========================= */
-
 *{
     margin:0;
     padding:0;
@@ -25,17 +21,9 @@
     font-family:Arial,sans-serif;
 }
 
-
-/* =========================
-   BODY
-========================= */
-
 body{
-
     min-height:100vh;
-
     overflow:hidden;
-
     color:white;
 
     background:
@@ -47,17 +35,9 @@ body{
         );
 }
 
-
-/* =========================
-   GRID
-========================= */
-
 body::before{
-
     content:"";
-
     position:fixed;
-
     inset:0;
 
     background:
@@ -79,7 +59,6 @@ body::before{
 }
 
 @keyframes gridMove{
-
     from{
         transform:translateY(0);
     }
@@ -87,16 +66,9 @@ body::before{
     to{
         transform:translateY(42px);
     }
-
 }
 
-
-/* =========================
-   GLOW
-========================= */
-
 .glow{
-
     position:fixed;
 
     width:320px;
@@ -119,12 +91,9 @@ body::before{
 }
 
 
-/* =========================
-   LOGO
-========================= */
+/* LOGO */
 
 .logo{
-
     position:absolute;
 
     top:38px;
@@ -148,12 +117,9 @@ body::before{
 }
 
 
-/* =========================
-   START BUTTON
-========================= */
+/* START */
 
 .start{
-
     position:absolute;
 
     top:50%;
@@ -191,84 +157,18 @@ body::before{
 }
 
 .start:active{
-
     transform:
         translate(-50%,-50%)
         scale(.95);
 }
 
 
-/* =========================
-   FLOAT MENU BUTTON
-========================= */
-
-.float{
-
-    display:none;
-
-    position:fixed;
-
-    right:22px;
-    bottom:25px;
-
-    width:65px;
-    height:65px;
-
-    border-radius:50%;
-
-    border:2px solid #00d9ff;
-
-    background:#06192d;
-
-    color:#00d9ff;
-
-    font-size:27px;
-
-    box-shadow:
-        0 0 20px #00d9ff;
-
-    cursor:pointer;
-
-    z-index:1000;
-
-    animation:floatIn .35s ease;
-}
-
-@keyframes floatIn{
-
-    from{
-
-        opacity:0;
-
-        transform:
-            scale(0)
-            rotate(-180deg);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:
-            scale(1)
-            rotate(0);
-
-    }
-
-}
-
-
-/* =========================
-   OVERLAY
-========================= */
+/* OVERLAY */
 
 .overlay{
-
     display:none;
 
     position:fixed;
-
     inset:0;
 
     background:
@@ -280,18 +180,14 @@ body::before{
 }
 
 
-/* =========================
-   KEY PANEL
-========================= */
+/* KEY PANEL */
 
 .panel{
-
     display:none;
 
     position:fixed;
 
     width:90%;
-
     max-width:410px;
 
     left:50%;
@@ -311,43 +207,12 @@ body::before{
 
     box-shadow:
         0 0 35px
-        rgba(0,217,255,.5),
-
-        inset 0 0 25px
-        rgba(0,150,255,.08);
+        rgba(0,217,255,.5);
 
     z-index:50;
-
-    animation:panelIn .25s ease;
 }
-
-@keyframes panelIn{
-
-    from{
-
-        opacity:0;
-
-        transform:
-            translate(-50%,-50%)
-            scale(.8);
-
-    }
-
-    to{
-
-        opacity:1;
-
-        transform:
-            translate(-50%,-50%)
-            scale(1);
-
-    }
-
-}
-
 
 .panel h2{
-
     text-align:center;
 
     margin-bottom:22px;
@@ -361,12 +226,9 @@ body::before{
 }
 
 
-/* =========================
-   INPUT
-========================= */
+/* INPUT */
 
 .key-input{
-
     width:100%;
 
     padding:15px;
@@ -387,7 +249,6 @@ body::before{
 }
 
 .key-input:focus{
-
     border-color:#00d9ff;
 
     box-shadow:
@@ -395,18 +256,10 @@ body::before{
         rgba(0,217,255,.5);
 }
 
-.key-input::placeholder{
 
-    color:#78909c;
-}
-
-
-/* =========================
-   BUTTON
-========================= */
+/* BUTTON */
 
 .btn{
-
     width:100%;
 
     padding:14px;
@@ -433,18 +286,10 @@ body::before{
     cursor:pointer;
 }
 
-.btn:active{
 
-    transform:scale(.97);
-}
-
-
-/* =========================
-   MESSAGE
-========================= */
+/* MESSAGE */
 
 .message{
-
     min-height:24px;
 
     margin-top:13px;
@@ -459,25 +304,18 @@ body::before{
 }
 
 .success{
-
     color:#00ffb3;
 }
 
 
-/* =========================
-   GAMES
-========================= */
+/* GAMES */
 
 .games{
-
     display:none;
-
     margin-top:17px;
 }
 
-
 .game{
-
     width:100%;
 
     padding:15px;
@@ -497,32 +335,27 @@ body::before{
     font-weight:bold;
 
     cursor:pointer;
-
-    transition:.2s;
 }
 
 .game:active{
-
     transform:scale(.97);
 }
 
 
-/* =========================
-   FEATURE PANEL
-========================= */
+/* =================================
+   MENU NỔI
+================================= */
 
-.feature-panel{
+.hoang-menu{
 
     display:none;
 
     position:fixed;
 
-    right:20px;
-    bottom:105px;
+    left:50%;
+    top:50%;
 
-    width:270px;
-
-    padding:18px;
+    width:285px;
 
     border-radius:20px;
 
@@ -532,72 +365,172 @@ body::before{
         rgba(3,12,25,.97);
 
     box-shadow:
-        0 0 30px
-        rgba(0,217,255,.5),
+        0 0 25px
+        rgba(0,217,255,.55),
 
         inset 0 0 20px
         rgba(0,150,255,.08);
 
-    z-index:999;
+    z-index:9999;
 
-    animation:featureIn .25s ease;
+    overflow:hidden;
+
+    user-select:none;
+
+    animation:menuIn .25s ease;
 }
 
-@keyframes featureIn{
+@keyframes menuIn{
 
     from{
-
         opacity:0;
-
         transform:
-            translateY(20px)
-            scale(.85);
-
+            translate(-50%,-50%)
+            scale(.75);
     }
 
     to{
-
         opacity:1;
-
         transform:
-            translateY(0)
+            translate(-50%,-50%)
             scale(1);
-
     }
-
 }
 
 
-/* =========================
-   FEATURE TITLE
-========================= */
+/* HEADER KÉO */
 
-.feature-title{
+.menu-header{
 
-    text-align:center;
+    display:flex;
 
-    color:#00d9ff;
+    align-items:center;
 
-    font-size:19px;
+    gap:12px;
 
-    font-weight:900;
+    padding:14px;
 
-    letter-spacing:3px;
-
-    padding-bottom:15px;
+    background:
+        linear-gradient(
+            135deg,
+            #061d35,
+            #082d49
+        );
 
     border-bottom:
         1px solid
-        rgba(0,217,255,.25);
+        rgba(0,217,255,.3);
 
-    text-shadow:
-        0 0 10px #00d9ff;
+    cursor:grab;
+
+    touch-action:none;
+}
+
+.menu-header:active{
+    cursor:grabbing;
 }
 
 
-/* =========================
-   FEATURE ROW
-========================= */
+/* AVATAR */
+
+.avatar{
+
+    width:48px;
+    height:48px;
+
+    flex-shrink:0;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0077b6,
+            #00d9ff
+        );
+
+    border:
+        2px solid
+        #00d9ff;
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:900;
+
+    box-shadow:
+        0 0 15px
+        rgba(0,217,255,.7);
+}
+
+
+/* TÊN */
+
+.user-info{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:3px;
+}
+
+.user-name{
+
+    color:white;
+
+    font-size:17px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+}
+
+.user-sub{
+
+    color:#6edfff;
+
+    font-size:11px;
+}
+
+
+/* NÚT ĐÓNG */
+
+.close-menu{
+
+    margin-left:auto;
+
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    border:1px solid
+        rgba(0,217,255,.5);
+
+    background:#06192d;
+
+    color:#00d9ff;
+
+    font-size:16px;
+
+    cursor:pointer;
+}
+
+
+/* BODY MENU */
+
+.menu-body{
+    padding:8px 15px 15px;
+}
+
+
+/* FEATURE */
 
 .feature-row{
 
@@ -607,7 +540,7 @@ body::before{
 
     justify-content:space-between;
 
-    padding:16px 4px;
+    padding:16px 2px;
 
     border-bottom:
         1px solid
@@ -621,9 +554,7 @@ body::before{
 }
 
 
-/* =========================
-   SWITCH
-========================= */
+/* SWITCH */
 
 .switch{
 
@@ -636,10 +567,8 @@ body::before{
 }
 
 .switch input{
-
     display:none;
 }
-
 
 .slider{
 
@@ -651,13 +580,14 @@ body::before{
 
     background:#263746;
 
-    border:1px solid #506777;
+    border:
+        1px solid
+        #506777;
 
     transition:.25s;
 
     cursor:pointer;
 }
-
 
 .slider::before{
 
@@ -678,7 +608,6 @@ body::before{
     transition:.25s;
 }
 
-
 .switch input:checked + .slider{
 
     background:#00aee8;
@@ -686,9 +615,9 @@ body::before{
     border-color:#00d9ff;
 
     box-shadow:
-        0 0 15px #00d9ff;
+        0 0 15px
+        #00d9ff;
 }
-
 
 .switch input:checked + .slider::before{
 
@@ -697,15 +626,13 @@ body::before{
 }
 
 
-/* =========================
-   STATUS
-========================= */
+/* STATUS */
 
-.feature-status{
+.status{
 
     min-height:20px;
 
-    margin-top:15px;
+    padding-top:14px;
 
     text-align:center;
 
@@ -716,40 +643,6 @@ body::before{
     font-weight:bold;
 }
 
-
-/* =========================
-   CLOSE BUTTON
-========================= */
-
-.close-feature{
-
-    width:100%;
-
-    margin-top:12px;
-
-    padding:10px;
-
-    border:1px solid
-        rgba(0,217,255,.5);
-
-    border-radius:10px;
-
-    background:#06192d;
-
-    color:#8eeaff;
-
-    font-size:14px;
-
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-.close-feature:active{
-
-    transform:scale(.97);
-}
-
 </style>
 </head>
 
@@ -757,27 +650,17 @@ body::before{
 <body>
 
 
-<!-- =========================
-     BACKGROUND
-========================= -->
-
 <div class="glow"></div>
 
 
-<!-- =========================
-     LOGO
-========================= -->
-
-<div class="logo" id="logo">
+<div
+    class="logo"
+    id="logo">
 
     HVTH PROXY
 
 </div>
 
-
-<!-- =========================
-     START
-========================= -->
 
 <button
     class="start"
@@ -788,23 +671,6 @@ body::before{
 </button>
 
 
-<!-- =========================
-     FLOAT MENU
-========================= -->
-
-<button
-    class="float"
-    id="floatBtn">
-
-    ☰
-
-</button>
-
-
-<!-- =========================
-     OVERLAY
-========================= -->
-
 <div
     class="overlay"
     id="overlay">
@@ -812,7 +678,7 @@ body::before{
 
 
 <!-- =========================
-     MAIN PANEL
+     KEY PANEL
 ========================= -->
 
 <div
@@ -857,10 +723,6 @@ body::before{
     </div>
 
 
-    <!-- =====================
-         GAME BUTTONS
-    ====================== -->
-
     <div
         class="games"
         id="games">
@@ -890,87 +752,104 @@ body::before{
 
 
 <!-- =========================
-     FEATURE MENU
+     MENU HOANGTHUC
 ========================= -->
 
 <div
-    class="feature-panel"
-    id="featurePanel">
+    class="hoang-menu"
+    id="hoangMenu">
 
 
-    <div class="feature-title">
-
-        HVTH PROXY
-
-    </div>
-
-
-    <!-- AIM NECK -->
-
-    <div class="feature-row">
-
-        <span>
-            Aim neck
-        </span>
-
-
-        <label class="switch">
-
-            <input
-                type="checkbox"
-                id="aimNeck">
-
-            <span class="slider"></span>
-
-        </label>
-
-    </div>
-
-
-    <!-- ESP MOCO -->
-
-    <div class="feature-row">
-
-        <span>
-            Esp moco
-        </span>
-
-
-        <label class="switch">
-
-            <input
-                type="checkbox"
-                id="espMoco">
-
-            <span class="slider"></span>
-
-        </label>
-
-    </div>
-
-
-    <!-- STATUS -->
+    <!-- HEADER KÉO ĐƯỢC -->
 
     <div
-        class="feature-status"
-        id="featureStatus">
+        class="menu-header"
+        id="dragHeader">
+
+
+        <div class="avatar">
+            H
+        </div>
+
+
+        <div class="user-info">
+
+            <div class="user-name">
+                hoangthuc
+            </div>
+
+            <div class="user-sub">
+                HVTH PROXY
+            </div>
+
+        </div>
+
+
+        <button
+            class="close-menu"
+            id="closeMenu">
+
+            ×
+
+        </button>
 
     </div>
 
 
-    <!-- CLOSE -->
+    <!-- CHỨC NĂNG -->
 
-    <button
-        class="close-feature"
-        id="closeFeature">
+    <div class="menu-body">
 
-        ĐÓNG MENU
 
-    </button>
+        <div class="feature-row">
 
+            <span>
+                Aim neck
+            </span>
+
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    id="aimNeck">
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div class="feature-row">
+
+            <span>
+                Esp moco
+            </span>
+
+
+            <label class="switch">
+
+                <input
+                    type="checkbox"
+                    id="espMoco">
+
+                <span class="slider"></span>
+
+            </label>
+
+        </div>
+
+
+        <div
+            class="status"
+            id="status">
+        </div>
+
+
+    </div>
 
 </div>
-
 
 
 <script>
@@ -981,7 +860,6 @@ body::before{
 
 const VALID_KEY =
     "HVTH-PROXY-7812";
-
 
 const GET_KEY_URL =
     "https://link4m.org/HPQEIsnw";
@@ -994,61 +872,47 @@ const GET_KEY_URL =
 const startBtn =
     document.getElementById("startBtn");
 
-
-const floatBtn =
-    document.getElementById("floatBtn");
-
-
 const logo =
     document.getElementById("logo");
-
 
 const panel =
     document.getElementById("panel");
 
-
 const overlay =
     document.getElementById("overlay");
-
 
 const keyInput =
     document.getElementById("keyInput");
 
-
 const getKey =
     document.getElementById("getKey");
-
 
 const checkKey =
     document.getElementById("checkKey");
 
-
 const message =
     document.getElementById("message");
-
 
 const games =
     document.getElementById("games");
 
+const hoangMenu =
+    document.getElementById("hoangMenu");
 
-const featurePanel =
-    document.getElementById("featurePanel");
+const dragHeader =
+    document.getElementById("dragHeader");
 
+const closeMenu =
+    document.getElementById("closeMenu");
 
 const aimNeck =
     document.getElementById("aimNeck");
 
-
 const espMoco =
     document.getElementById("espMoco");
 
-
-const featureStatus =
-    document.getElementById("featureStatus");
-
-
-const closeFeature =
-    document.getElementById("closeFeature");
+const status =
+    document.getElementById("status");
 
 
 /* =========================
@@ -1064,47 +928,16 @@ function(){
     startBtn.style.display =
         "none";
 
-    floatBtn.style.display =
-        "block";
-
-    openMainPanel();
+    openPanel();
 
 };
 
 
 /* =========================
-   FLOAT BUTTON
+   OPEN PANEL
 ========================= */
 
-floatBtn.onclick =
-function(){
-
-    /*
-       Bấm nút nổi mới hiện
-       menu chức năng
-    */
-
-    if(
-        featurePanel.style.display
-        === "block"
-    ){
-
-        closeFeatureMenu();
-
-    }else{
-
-        openFeatureMenu();
-
-    }
-
-};
-
-
-/* =========================
-   MAIN PANEL
-========================= */
-
-function openMainPanel(){
+function openPanel(){
 
     panel.style.display =
         "block";
@@ -1119,9 +952,7 @@ function openMainPanel(){
         );
 
 
-    if(
-        savedKey === VALID_KEY
-    ){
+    if(savedKey === VALID_KEY){
 
         keyInput.value =
             savedKey;
@@ -1135,24 +966,13 @@ function openMainPanel(){
         message.innerHTML =
             "KEY HỢP LỆ";
 
-    }else{
-
-        games.style.display =
-            "none";
-
-        message.className =
-            "message";
-
-        message.innerHTML =
-            "";
-
     }
 
 }
 
 
 /* =========================
-   OVERLAY
+   CLOSE KEY PANEL
 ========================= */
 
 overlay.onclick =
@@ -1191,9 +1011,7 @@ function(){
         keyInput.value.trim();
 
 
-    if(
-        key === VALID_KEY
-    ){
+    if(key === VALID_KEY){
 
         localStorage.setItem(
             "hvth_key",
@@ -1211,7 +1029,6 @@ function(){
 
         games.style.display =
             "block";
-
 
     }else{
 
@@ -1237,21 +1054,15 @@ function(){
 
 
 /* =========================
-   SELECT GAME
+   CHỌN FREE FIRE
 ========================= */
 
 function selectGame(type){
 
     /*
-       Sau khi chọn FF MAX
-       hoặc FF TH:
-
-       1. Đóng panel key
-       2. Đóng overlay
-       3. Hiện nút menu nổi
-       4. Chưa hiện chức năng
+       Chỉ sau khi bấm
+       Free Fire mới hiện menu.
     */
-
 
     panel.style.display =
         "none";
@@ -1260,73 +1071,26 @@ function selectGame(type){
         "none";
 
 
-    floatBtn.style.display =
+    hoangMenu.style.display =
         "block";
 
 
-    featurePanel.style.display =
+    loadSettings();
+
+}
+
+
+/* =========================
+   ĐÓNG MENU
+========================= */
+
+closeMenu.onclick =
+function(event){
+
+    event.stopPropagation();
+
+    hoangMenu.style.display =
         "none";
-
-
-    featureStatus.innerHTML =
-        "";
-
-
-    if(type === "max"){
-
-        console.log(
-            "Đã chọn Free Fire MAX"
-        );
-
-    }
-
-
-    if(type === "th"){
-
-        console.log(
-            "Đã chọn Free Fire TH"
-        );
-
-    }
-
-}
-
-
-/* =========================
-   OPEN FEATURE MENU
-========================= */
-
-function openFeatureMenu(){
-
-    featurePanel.style.display =
-        "block";
-
-
-    loadFeatureState();
-
-}
-
-
-/* =========================
-   CLOSE FEATURE MENU
-========================= */
-
-function closeFeatureMenu(){
-
-    featurePanel.style.display =
-        "none";
-
-}
-
-
-/* =========================
-   CLOSE BUTTON
-========================= */
-
-closeFeature.onclick =
-function(){
-
-    closeFeatureMenu();
 
 };
 
@@ -1345,8 +1109,7 @@ function(){
             "on"
         );
 
-
-        featureStatus.innerHTML =
+        status.innerHTML =
             "Đã kích hoạt chức năng Aim neck";
 
     }else{
@@ -1356,8 +1119,7 @@ function(){
             "off"
         );
 
-
-        featureStatus.innerHTML =
+        status.innerHTML =
             "Đã tắt chức năng Aim neck";
 
     }
@@ -1379,8 +1141,7 @@ function(){
             "on"
         );
 
-
-        featureStatus.innerHTML =
+        status.innerHTML =
             "Đã kích hoạt chức năng Esp moco";
 
     }else{
@@ -1390,8 +1151,7 @@ function(){
             "off"
         );
 
-
-        featureStatus.innerHTML =
+        status.innerHTML =
             "Đã tắt chức năng Esp moco";
 
     }
@@ -1400,65 +1160,325 @@ function(){
 
 
 /* =========================
-   LOAD STATE
+   LOAD SETTINGS
 ========================= */
 
-function loadFeatureState(){
-
-    const aimState =
-        localStorage.getItem(
-            "aim_neck"
-        );
-
-
-    const espState =
-        localStorage.getItem(
-            "esp_moco"
-        );
-
+function loadSettings(){
 
     aimNeck.checked =
-        aimState === "on";
+        localStorage.getItem(
+            "aim_neck"
+        ) === "on";
 
 
     espMoco.checked =
-        espState === "on";
+        localStorage.getItem(
+            "esp_moco"
+        ) === "on";
 
 }
 
 
 /* =========================
-   SERVICE WORKER
+   KÉO MENU BẰNG CHUỘT
 ========================= */
 
-if(
-    "serviceWorker"
-    in navigator
-){
+let dragging = false;
 
-    window.addEventListener(
-        "load",
-        function(){
+let offsetX = 0;
+let offsetY = 0;
 
-            navigator.serviceWorker
-                .register("./sw.js")
-                .catch(
-                    function(error){
 
-                        console.log(
-                            "Service Worker lỗi:",
-                            error
-                        );
+dragHeader.addEventListener(
+    "mousedown",
+    startDrag
+);
 
-                    }
-                );
 
-        }
+document.addEventListener(
+    "mousemove",
+    drag
+);
+
+
+document.addEventListener(
+    "mouseup",
+    stopDrag
+);
+
+
+/* =========================
+   KÉO MENU CẢM ỨNG
+========================= */
+
+dragHeader.addEventListener(
+    "touchstart",
+    startTouch,
+    {passive:false}
+);
+
+
+document.addEventListener(
+    "touchmove",
+    moveTouch,
+    {passive:false}
+);
+
+
+document.addEventListener(
+    "touchend",
+    stopDrag
+);
+
+
+/* =========================
+   MOUSE DRAG
+========================= */
+
+function startDrag(e){
+
+    if(e.target === closeMenu){
+        return;
+    }
+
+
+    dragging = true;
+
+
+    const rect =
+        hoangMenu.getBoundingClientRect();
+
+
+    offsetX =
+        e.clientX - rect.left;
+
+    offsetY =
+        e.clientY - rect.top;
+
+
+    hoangMenu.style.left =
+        rect.left + "px";
+
+    hoangMenu.style.top =
+        rect.top + "px";
+
+    hoangMenu.style.transform =
+        "none";
+}
+
+
+function drag(e){
+
+    if(!dragging){
+        return;
+    }
+
+
+    moveMenu(
+        e.clientX,
+        e.clientY
     );
 
 }
 
+
+function stopDrag(){
+
+    dragging = false;
+
+}
+
+
+/* =========================
+   TOUCH DRAG
+========================= */
+
+function startTouch(e){
+
+    if(e.target === closeMenu){
+        return;
+    }
+
+
+    e.preventDefault();
+
+
+    dragging = true;
+
+
+    const touch =
+        e.touches[0];
+
+    const rect =
+        hoangMenu.getBoundingClientRect();
+
+
+    offsetX =
+        touch.clientX - rect.left;
+
+    offsetY =
+        touch.clientY - rect.top;
+
+
+    hoangMenu.style.left =
+        rect.left + "px";
+
+    hoangMenu.style.top =
+        rect.top + "px";
+
+    hoangMenu.style.transform =
+        "none";
+}
+
+
+function moveTouch(e){
+
+    if(!dragging){
+        return;
+    }
+
+
+    e.preventDefault();
+
+
+    const touch =
+        e.touches[0];
+
+
+    moveMenu(
+        touch.clientX,
+        touch.clientY
+    );
+
+}
+
+
+/* =========================
+   DI CHUYỂN MENU
+========================= */
+
+function moveMenu(x,y){
+
+    let newX =
+        x - offsetX;
+
+    let newY =
+        y - offsetY;
+
+
+    const width =
+        hoangMenu.offsetWidth;
+
+    const height =
+        hoangMenu.offsetHeight;
+
+
+    const maxX =
+        window.innerWidth - width;
+
+    const maxY =
+        window.innerHeight - height;
+
+
+    /*
+       Không cho menu
+       kéo ra ngoài màn hình.
+    */
+
+    newX =
+        Math.max(
+            0,
+            Math.min(
+                newX,
+                maxX
+            )
+        );
+
+
+    newY =
+        Math.max(
+            0,
+            Math.min(
+                newY,
+                maxY
+            )
+        );
+
+
+    hoangMenu.style.left =
+        newX + "px";
+
+    hoangMenu.style.top =
+        newY + "px";
+
+}
+
+
+/* =========================
+   LƯU VỊ TRÍ MENU
+========================= */
+
+window.addEventListener(
+    "beforeunload",
+    function(){
+
+        if(
+            hoangMenu.style.display
+            === "block"
+        ){
+
+            localStorage.setItem(
+                "menu_x",
+                hoangMenu.offsetLeft
+            );
+
+            localStorage.setItem(
+                "menu_y",
+                hoangMenu.offsetTop
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================
+   KHÔI PHỤC VỊ TRÍ
+========================= */
+
+function loadMenuPosition(){
+
+    const x =
+        localStorage.getItem(
+            "menu_x"
+        );
+
+    const y =
+        localStorage.getItem(
+            "menu_y"
+        );
+
+
+    if(x !== null && y !== null){
+
+        hoangMenu.style.left =
+            x + "px";
+
+        hoangMenu.style.top =
+            y + "px";
+
+        hoangMenu.style.transform =
+            "none";
+
+    }
+
+}
+
+
+loadMenuPosition();
+
 </script>
 
 </body>
-        </html>
+      </html>
