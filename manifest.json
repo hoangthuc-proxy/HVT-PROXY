@@ -1,0 +1,19 @@
+{
+  "name": "HVTH PROXY",
+  "short_name": "HVTH",
+  "description": "HVTH PROXY Web App",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#02050b",
+  "theme_color": "#00d9ff",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
