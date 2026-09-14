@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -25,10 +25,6 @@ html,body{
     color:white;
 }
 
-/* =========================
-   BACKGROUND
-========================= */
-
 body{
     background:
         linear-gradient(
@@ -39,7 +35,6 @@ body{
         url("bg.png") center/cover no-repeat fixed;
 }
 
-/* lớp tối */
 body::before{
     content:"";
     position:fixed;
@@ -52,10 +47,6 @@ body::before{
         );
     pointer-events:none;
 }
-
-/* =========================
-   LOADING
-========================= */
 
 #loading{
     position:fixed;
@@ -103,10 +94,6 @@ body::before{
     100%{transform:translateX(300%)}
 }
 
-/* =========================
-   MAIN
-========================= */
-
 #app{
     position:relative;
     width:100%;
@@ -120,10 +107,6 @@ body::before{
     opacity:1;
     transform:scale(1);
 }
-
-/* =========================
-   HEADER
-========================= */
 
 .header{
     position:absolute;
@@ -153,10 +136,6 @@ body::before{
     letter-spacing:2px;
     color:#00d9ff;
 }
-
-/* =========================
-   MAIN CARD
-========================= */
 
 .main-card{
     position:absolute;
@@ -197,10 +176,6 @@ body::before{
     margin-bottom:18px;
 }
 
-/* =========================
-   KEY INPUT
-========================= */
-
 .key-input{
     width:100%;
     height:52px;
@@ -230,10 +205,6 @@ body::before{
 .key-input::placeholder{
     color:#777;
 }
-
-/* =========================
-   BUTTON
-========================= */
 
 .btn{
     width:100%;
@@ -273,10 +244,6 @@ body::before{
     box-shadow:
         0 0 25px rgba(0,210,255,.7);
 }
-
-/* =========================
-   GAME SELECT
-========================= */
 
 .game-select{
     display:none;
@@ -337,10 +304,6 @@ body::before{
         0 0 15px rgba(0,210,255,.5);
 }
 
-/* =========================
-   MENU
-========================= */
-
 #menu{
     position:absolute;
     left:50%;
@@ -398,10 +361,6 @@ body::before{
     letter-spacing:1px;
 }
 
-/* =========================
-   MENU ITEM
-========================= */
-
 .menu-item{
     display:flex;
     align-items:center;
@@ -432,10 +391,6 @@ body::before{
     font-size:10px;
     color:#00eaff;
 }
-
-/* =========================
-   SWITCH
-========================= */
 
 .switch{
     position:relative;
@@ -480,10 +435,6 @@ body::before{
     transform:translateX(21px);
 }
 
-/* =========================
-   CLOSE MENU
-========================= */
-
 .close-menu{
     width:100%;
     height:45px;
@@ -504,10 +455,6 @@ body::before{
 .close-menu:active{
     transform:scale(.95);
 }
-
-/* =========================
-   OPEN MENU BUTTON
-========================= */
 
 #openMenu{
     display:none;
@@ -544,10 +491,6 @@ body::before{
     transform:translateX(-50%) scale(.94);
 }
 
-/* =========================
-   NOTIFICATION
-========================= */
-
 #notice{
     position:fixed;
     top:20px;
@@ -580,10 +523,6 @@ body::before{
     transform:translate(-50%,0);
 }
 
-/* =========================
-   TRANSITION
-========================= */
-
 #transition{
     position:fixed;
     inset:0;
@@ -601,10 +540,6 @@ body::before{
     opacity:1;
     visibility:visible;
 }
-
-/* =========================
-   PARTICLES
-========================= */
 
 .particle{
     position:fixed;
@@ -647,7 +582,6 @@ body::before{
 
 <body>
 
-<!-- LOADING -->
 <div id="loading">
     <div class="loading-title">
         HOANGTHUC-PROXY
@@ -656,16 +590,12 @@ body::before{
     <div class="loading-line"></div>
 </div>
 
-<!-- TRANSITION -->
 <div id="transition"></div>
 
-<!-- NOTICE -->
 <div id="notice"></div>
 
-<!-- APP -->
 <div id="app">
 
-    <!-- HEADER -->
     <div class="header">
         <div class="logo">
             HOANGTHUC-PROXY
@@ -676,8 +606,6 @@ body::before{
         </div>
     </div>
 
-
-    <!-- MAIN -->
     <div class="main-card">
 
         <div class="card-title">
@@ -699,8 +627,14 @@ body::before{
             XÁC NHẬN KEY
         </button>
 
+        <!-- GET KEY: PHẦN ĐƯỢC THÊM -->
+        <button
+            class="btn"
+            onclick="getKey()"
+        >
+            GET KEY
+        </button>
 
-        <!-- GAME SELECT -->
         <div
             id="gameSelect"
             class="game-select"
@@ -735,8 +669,6 @@ body::before{
 
     </div>
 
-
-    <!-- OPEN MENU -->
     <button
         id="openMenu"
         onclick="openMenu()"
@@ -744,8 +676,6 @@ body::before{
         MỞ MENU
     </button>
 
-
-    <!-- MENU -->
     <div id="menu">
 
         <div class="menu-header">
@@ -759,7 +689,6 @@ body::before{
             </p>
 
         </div>
-
 
         <div class="menu-item">
 
@@ -780,7 +709,6 @@ body::before{
 
         </div>
 
-
         <div class="menu-item">
 
             <div>
@@ -799,7 +727,6 @@ body::before{
             </label>
 
         </div>
-
 
         <div class="menu-item">
 
@@ -820,7 +747,6 @@ body::before{
 
         </div>
 
-
         <div class="menu-item">
 
             <div>
@@ -840,7 +766,6 @@ body::before{
 
         </div>
 
-
         <button
             class="close-menu"
             onclick="closeMenu()"
@@ -852,14 +777,19 @@ body::before{
 
 </div>
 
-
 <script>
 
+let selectedGame = null;
+
+
 /* =========================
-   VARIABLES
+   KEY CONFIG
 ========================= */
 
-let selectedGame = null;
+const VALID_KEY = "HVTH-PROXY-7812";
+
+const GET_KEY_URL =
+    "https://link4m.org/go/HPQEIsnw";
 
 
 /* =========================
@@ -909,6 +839,20 @@ function notice(text){
 
 
 /* =========================
+   GET KEY
+========================= */
+
+function getKey(){
+
+    window.open(
+        GET_KEY_URL,
+        "_blank"
+    );
+
+}
+
+
+/* =========================
    TRANSITION
 ========================= */
 
@@ -930,6 +874,7 @@ function transition(callback){
         },250);
 
     },500);
+
 }
 
 
@@ -951,6 +896,17 @@ function verifyKey(){
 
         return;
     }
+
+    /* CHỈ KEY NÀY MỚI ĐƯỢC QUA */
+
+    if(key !== VALID_KEY){
+
+        notice("KEY KHÔNG HỢP LỆ");
+
+        return;
+    }
+
+    /* KEY ĐÚNG */
 
     transition(() => {
 
@@ -982,6 +938,7 @@ function selectGame(element,game){
     selectedGame = game;
 
     notice("ĐÃ CHỌN " + game.toUpperCase());
+
 }
 
 
@@ -1067,6 +1024,7 @@ function createParticles(){
             Math.random()*5 + "s";
 
         document.body.appendChild(p);
+
     }
 
 }
@@ -1076,4 +1034,4 @@ createParticles();
 </script>
 
 </body>
-            </html>
+      </html>
