@@ -2,1093 +2,1078 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<meta name="theme-color" content="#00d9ff">
-<title>HOANGTHUC-PROXY HVTH</title>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               maximum-scale=1.0,user-scalable=no">
+
+<title>HOANGTHUC-PROXY</title>
 
 <style>
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
     -webkit-tap-highlight-color:transparent;
 }
 
-body{
-    margin:0;
-    min-height:100vh;
+html,body{
+    width:100%;
+    height:100%;
     overflow:hidden;
-    font-family:Arial,sans-serif;
-    color:#fff;
-    background:#03060b;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#050505;
+    color:white;
 }
 
-body:before{
+/* =========================
+   BACKGROUND
+========================= */
+
+body{
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,0,0,.45),
+            rgba(0,20,40,.25)
+        ),
+        url("bg.png") center/cover no-repeat fixed;
+}
+
+/* lớp tối */
+body::before{
     content:"";
     position:fixed;
     inset:0;
     background:
-      linear-gradient(#00d9ff0c 1px,transparent 1px),
-      linear-gradient(90deg,#00d9ff0c 1px,transparent 1px);
-    background-size:35px 35px;
-    animation:gridMove 8s linear infinite;
+        radial-gradient(
+            circle at center,
+            transparent 20%,
+            rgba(0,0,0,.72) 100%
+        );
     pointer-events:none;
 }
 
-@keyframes gridMove{
-    to{background-position:35px 35px}
-}
+/* =========================
+   LOADING
+========================= */
 
-.container{
-    position:relative;
-    z-index:2;
-    min-height:100vh;
+#loading{
+    position:fixed;
+    inset:0;
+    z-index:9999;
     display:flex;
     align-items:center;
     justify-content:center;
+    flex-direction:column;
+    background:#030303;
+    transition:.8s;
 }
 
-.box{
-    width:90%;
-    max-width:380px;
-    padding:25px;
-    border:1px solid #00d9ff66;
+.loading-title{
+    font-size:28px;
+    font-weight:900;
+    letter-spacing:3px;
+    color:#00d9ff;
+    text-shadow:
+        0 0 10px #00d9ff,
+        0 0 30px #0077ff;
+}
+
+.loading-line{
+    width:180px;
+    height:3px;
+    margin-top:20px;
+    background:#111;
+    overflow:hidden;
     border-radius:20px;
-    background:#06101bee;
-    box-shadow:0 0 35px #00d9ff22;
+}
+
+.loading-line::after{
+    content:"";
+    display:block;
+    width:50%;
+    height:100%;
+    background:#00d9ff;
+    box-shadow:0 0 15px #00d9ff;
+    animation:load 1s infinite;
+}
+
+@keyframes load{
+    0%{transform:translateX(-100%)}
+    100%{transform:translateX(300%)}
+}
+
+/* =========================
+   MAIN
+========================= */
+
+#app{
+    position:relative;
+    width:100%;
+    height:100%;
+    opacity:0;
+    transform:scale(1.05);
+    transition:1s;
+}
+
+#app.show{
+    opacity:1;
+    transform:scale(1);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    position:absolute;
+    top:25px;
+    left:50%;
+    transform:translateX(-50%);
+    width:92%;
     text-align:center;
+    z-index:10;
 }
 
 .logo{
-    font-size:32px;
-    font-weight:900;
-    color:#00eaff;
-    letter-spacing:3px;
-    text-shadow:0 0 18px #00eaff;
-    margin-bottom:25px;
+    font-size:25px;
+    font-weight:1000;
+    letter-spacing:2px;
+    color:white;
+    text-shadow:
+        0 0 5px #00d9ff,
+        0 0 15px #00aaff,
+        0 0 35px #0066ff;
 }
 
-button,input{
-    width:100%;
-    border-radius:12px;
-    font-size:15px;
-}
-
-button{
-    border:1px solid #00d9ff;
-    background:#071721;
-    color:#fff;
-    padding:14px;
+.sub{
+    margin-top:5px;
+    font-size:11px;
     font-weight:bold;
-    cursor:pointer;
+    letter-spacing:2px;
+    color:#00d9ff;
 }
 
-button:active{
-    transform:scale(.97);
+/* =========================
+   MAIN CARD
+========================= */
+
+.main-card{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:min(88%,380px);
+    padding:25px;
+    border:1px solid rgba(0,217,255,.5);
+    border-radius:20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0,0,0,.72),
+            rgba(0,35,60,.5)
+        );
+
+    backdrop-filter:blur(12px);
+
+    box-shadow:
+        0 0 15px rgba(0,180,255,.35),
+        inset 0 0 30px rgba(0,140,255,.08);
+
+    transition:.5s;
 }
 
-.start-btn{
-    color:#00eaff;
+.main-card:hover{
+    box-shadow:
+        0 0 30px rgba(0,200,255,.55),
+        inset 0 0 30px rgba(0,140,255,.15);
 }
 
-#keyPanel,
-#gamePanel{
-    display:none;
+.card-title{
+    text-align:center;
+    font-size:19px;
+    font-weight:900;
+    margin-bottom:18px;
 }
 
-input{
-    padding:14px;
-    border:1px solid #00d9ff66;
+/* =========================
+   KEY INPUT
+========================= */
+
+.key-input{
+    width:100%;
+    height:52px;
+    border:1px solid #00cfff;
     outline:none;
-    background:#02070c;
-    color:#fff;
-    margin-bottom:12px;
+    border-radius:12px;
+    background:rgba(0,0,0,.65);
+    color:white;
+    text-align:center;
+    font-size:15px;
+    font-weight:bold;
+
+    box-shadow:
+        inset 0 0 10px rgba(0,180,255,.1),
+        0 0 10px rgba(0,180,255,.15);
+
+    transition:.3s;
 }
 
-input:focus{
-    border-color:#00eaff;
-    box-shadow:0 0 12px #00eaff33;
+.key-input:focus{
+    border-color:#fff;
+    box-shadow:
+        0 0 15px #00cfff,
+        inset 0 0 15px rgba(0,200,255,.15);
 }
 
-.get-key{
+.key-input::placeholder{
+    color:#777;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.btn{
+    width:100%;
+    height:50px;
+    margin-top:15px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+
+    color:white;
+    font-size:15px;
+    font-weight:900;
+    letter-spacing:1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #006eff,
+            #00cfff,
+            #006eff
+        );
+
+    background-size:200% 100%;
+
+    box-shadow:
+        0 0 15px rgba(0,180,255,.45);
+
+    transition:.3s;
+}
+
+.btn:active{
+    transform:scale(.94);
+}
+
+.btn:hover{
+    background-position:100% 0;
+    box-shadow:
+        0 0 25px rgba(0,210,255,.7);
+}
+
+/* =========================
+   GAME SELECT
+========================= */
+
+.game-select{
+    display:none;
+    margin-top:18px;
+    animation:slideUp .5s ease;
+}
+
+@keyframes slideUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.select-title{
+    font-size:12px;
+    text-align:center;
+    color:#aaa;
     margin-bottom:10px;
 }
 
-.confirm{
-    background:#00a9c7;
-    color:#001014;
-}
-
 .game{
-    margin-top:12px;
-    background:#071923;
-}
-
-.status{
-    min-height:20px;
-    margin-top:12px;
-    font-size:13px;
-    color:#7defff;
-}
-
-/* ================= AVATAR ================= */
-
-#floatingAvatar{
-    display:none;
-    position:fixed;
-    left:20px;
-    top:200px;
-
-    width:70px;
-    height:70px;
-
-    border-radius:50%;
-    z-index:9999;
-
-    padding:4px;
-
-    background:linear-gradient(
-        135deg,
-        #00f0ff,
-        #126cff,
-        #a000ff
-    );
-
-    border:2px solid #00eaff;
-
-    box-shadow:
-        0 0 8px #00eaff,
-        0 0 22px #0077ff,
-        0 0 40px #8a00ff66;
-
-    touch-action:none;
-    user-select:none;
-}
-
-.avatar-inner{
     width:100%;
-    height:100%;
-    border-radius:50%;
-    overflow:hidden;
-    position:relative;
+    padding:15px;
+    margin-top:10px;
+
+    border:1px solid rgba(0,210,255,.4);
+    border-radius:12px;
+
+    background:rgba(0,0,0,.55);
+
+    color:white;
+    font-weight:900;
+
+    cursor:pointer;
+    transition:.3s;
+}
+
+.game:hover{
+    border-color:#00d9ff;
+    box-shadow:0 0 15px rgba(0,210,255,.4);
+}
+
+.game.selected{
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0,110,255,.4),
+            rgba(0,210,255,.2)
+        );
+
+    border-color:#00d9ff;
+    box-shadow:
+        0 0 15px rgba(0,210,255,.5);
+}
+
+/* =========================
+   MENU
+========================= */
+
+#menu{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(.8);
+
+    width:min(90%,400px);
+
+    padding:20px;
+
+    opacity:0;
+    visibility:hidden;
+
+    border-radius:20px;
+    border:1px solid #00d9ff;
 
     background:
-        radial-gradient(
-            circle at 50% 35%,
-            #25304a 0 20%,
-            #080b13 21% 60%,
-            #020308 61%
+        linear-gradient(
+            145deg,
+            rgba(0,0,0,.88),
+            rgba(0,30,55,.8)
         );
-}
 
-.avatar-inner:before{
-    content:"";
-    position:absolute;
-    width:48px;
-    height:12px;
-    left:7px;
-    top:23px;
-
-    background:#00eaff;
-    border-radius:20px;
+    backdrop-filter:blur(15px);
 
     box-shadow:
-        0 0 8px #00eaff,
-        0 0 18px #00eaff;
+        0 0 30px rgba(0,190,255,.5);
+
+    transition:.4s;
+
+    z-index:100;
 }
 
-.avatar-inner:after{
-    content:"";
-    position:absolute;
-    width:35px;
-    height:10px;
-    left:12px;
-    bottom:10px;
-
-    border-bottom:3px solid #00eaff;
-    border-radius:50%;
-}
-
-/* ================= MENU ================= */
-
-#featureMenu{
-    display:none;
-
-    position:fixed;
-    z-index:9998;
-
-    width:280px;
-
-    border:1px solid #00eaff;
-    border-radius:18px;
-
-    overflow:hidden;
-
-    background:rgba(3,9,17,.97);
-
-    box-shadow:
-        0 0 15px #00eaff66,
-        0 0 45px #0066ff33;
-
-    backdrop-filter:blur(12px);
+#menu.active{
+    opacity:1;
+    visibility:visible;
+    transform:translate(-50%,-50%) scale(1);
 }
 
 .menu-header{
-    height:58px;
-    display:flex;
-    align-items:center;
-
-    padding:0 10px 0 16px;
-
-    background:linear-gradient(
-        90deg,
-        #071a24,
-        #101329
-    );
-
-    border-bottom:1px solid #00eaff33;
+    text-align:center;
+    margin-bottom:15px;
 }
 
-.username{
-    flex:1;
-
-    font-size:16px;
-    font-weight:900;
-
-    color:#00eaff;
+.menu-header h2{
+    font-size:22px;
+    color:#00d9ff;
+    text-shadow:0 0 15px #00d9ff;
 }
 
-.menu-btn{
-    width:34px;
-    height:34px;
-
-    padding:0;
-
-    border:0;
-    border-radius:8px;
-
-    background:#111a29;
-
-    font-size:24px;
-    line-height:34px;
-}
-
-.minus{
-    color:#00eaff;
-}
-
-.close{
-    margin-left:6px;
-    color:#ff4161;
-}
-
-.feature{
-    display:flex;
-    align-items:center;
-
-    padding:16px;
-
-    border-bottom:1px solid #ffffff0c;
-}
-
-.feature:last-child{
-    border-bottom:0;
-}
-
-.feature-name{
-    flex:1;
-    font-weight:bold;
-}
-
-.feature-state{
-    margin-right:10px;
+.menu-header p{
+    margin-top:5px;
     font-size:10px;
-    color:#78869a;
+    color:#888;
+    letter-spacing:1px;
 }
 
-/* switch */
+/* =========================
+   MENU ITEM
+========================= */
+
+.menu-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-top:10px;
+    padding:14px;
+
+    border-radius:12px;
+
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+}
+
+.menu-item:hover{
+    border-color:#00d9ff;
+    box-shadow:0 0 15px rgba(0,210,255,.25);
+}
+
+.item-name{
+    font-size:14px;
+    font-weight:900;
+}
+
+.item-status{
+    font-size:10px;
+    color:#00eaff;
+}
+
+/* =========================
+   SWITCH
+========================= */
 
 .switch{
-    width:48px;
-    height:26px;
-
     position:relative;
-
-    border-radius:20px;
-
-    background:#202a3b;
+    width:45px;
+    height:23px;
 }
 
-.switch:after{
-    content:"";
+.switch input{
+    display:none;
+}
 
+.slider{
     position:absolute;
+    inset:0;
+    background:#222;
+    border-radius:30px;
+    border:1px solid #555;
+    transition:.3s;
+}
 
-    width:20px;
-    height:20px;
+.slider::before{
+    content:"";
+    position:absolute;
+    width:17px;
+    height:17px;
+    left:2px;
+    top:2px;
 
-    top:3px;
-    left:3px;
-
+    background:white;
     border-radius:50%;
 
-    background:#8994a6;
-
-    transition:.2s;
+    transition:.3s;
 }
 
-.switch.on{
-    background:#00aeca;
-    box-shadow:0 0 12px #00eaff88;
+.switch input:checked + .slider{
+    background:#006eff;
+    border-color:#00d9ff;
+    box-shadow:0 0 10px #00cfff;
 }
 
-.switch.on:after{
-    left:25px;
-    background:#fff;
+.switch input:checked + .slider::before{
+    transform:translateX(21px);
 }
 
-/* thông báo */
+/* =========================
+   CLOSE MENU
+========================= */
 
-.toast{
-    position:fixed;
-    left:50%;
-    bottom:25px;
+.close-menu{
+    width:100%;
+    height:45px;
+    margin-top:15px;
 
-    transform:translateX(-50%) translateY(20px);
-
-    padding:11px 18px;
-
+    border:none;
     border-radius:10px;
 
-    background:#07131d;
-    border:1px solid #00eaff;
+    background:#111;
+    border:1px solid #333;
 
-    color:#00eaff;
+    color:white;
+    font-weight:900;
 
-    font-size:13px;
-
-    opacity:0;
-    pointer-events:none;
-
-    transition:.25s;
-
-    z-index:10000;
+    cursor:pointer;
 }
 
-.toast.show{
+.close-menu:active{
+    transform:scale(.95);
+}
+
+/* =========================
+   OPEN MENU BUTTON
+========================= */
+
+#openMenu{
+    display:none;
+
+    position:absolute;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+
+    width:180px;
+    height:48px;
+
+    border:none;
+    border-radius:14px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #005cff,
+            #00cfff
+        );
+
+    color:white;
+    font-weight:900;
+    letter-spacing:1px;
+
+    box-shadow:
+        0 0 20px rgba(0,190,255,.5);
+
+    z-index:20;
+}
+
+#openMenu:active{
+    transform:translateX(-50%) scale(.94);
+}
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+#notice{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translate(-50%,-100px);
+
+    min-width:240px;
+    padding:13px 18px;
+
+    border-radius:12px;
+    border:1px solid #00d9ff;
+
+    background:rgba(0,10,20,.92);
+
+    color:white;
+    text-align:center;
+    font-size:12px;
+    font-weight:bold;
+
+    box-shadow:0 0 20px rgba(0,200,255,.4);
+
+    opacity:0;
+    transition:.4s;
+
+    z-index:99999;
+}
+
+#notice.show{
     opacity:1;
-    transform:translateX(-50%) translateY(0);
+    transform:translate(-50%,0);
+}
+
+/* =========================
+   TRANSITION
+========================= */
+
+#transition{
+    position:fixed;
+    inset:0;
+    z-index:9998;
+
+    background:#000;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.5s;
+}
+
+#transition.active{
+    opacity:1;
+    visibility:visible;
+}
+
+/* =========================
+   PARTICLES
+========================= */
+
+.particle{
+    position:fixed;
+    width:3px;
+    height:3px;
+    background:#00d9ff;
+    border-radius:50%;
+    box-shadow:0 0 10px #00d9ff;
+
+    pointer-events:none;
+
+    animation:particleMove linear infinite;
+}
+
+@keyframes particleMove{
+    from{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+
+    20%{
+        opacity:1;
+    }
+
+    80%{
+        opacity:1;
+    }
+
+    to{
+        transform:translateY(-10vh);
+        opacity:0;
+    }
+}
+
+.hidden{
+    display:none !important;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<!-- LOADING -->
+<div id="loading">
+    <div class="loading-title">
+        HOANGTHUC-PROXY
+    </div>
 
-    <div class="box">
+    <div class="loading-line"></div>
+</div>
 
+<!-- TRANSITION -->
+<div id="transition"></div>
+
+<!-- NOTICE -->
+<div id="notice"></div>
+
+<!-- APP -->
+<div id="app">
+
+    <!-- HEADER -->
+    <div class="header">
         <div class="logo">
-            HVTH PROXY
+            HOANGTHUC-PROXY
         </div>
 
-        <!-- BẮT ĐẦU -->
-        <div id="startPanel">
+        <div class="sub">
+            AIMBOT 100% • ESP BOX RED
+        </div>
+    </div>
 
-            <button
-                class="start-btn"
-                onclick="startProxy()">
-                BẮT ĐẦU
-            </button>
 
+    <!-- MAIN -->
+    <div class="main-card">
+
+        <div class="card-title">
+            XÁC THỰC KEY
         </div>
 
+        <input
+            id="keyInput"
+            class="key-input"
+            type="text"
+            placeholder="NHẬP KEY..."
+            autocomplete="off"
+        >
 
-        <!-- NHẬP KEY -->
-        <div id="keyPanel">
+        <button
+            class="btn"
+            onclick="verifyKey()"
+        >
+            XÁC NHẬN KEY
+        </button>
 
-            <input
-                id="keyInput"
-                type="text"
-                placeholder="Nhập KEY..."
-                autocomplete="off">
 
-            <button
-                class="get-key"
-                onclick="getKey()">
-                GET KEY
-            </button>
+        <!-- GAME SELECT -->
+        <div
+            id="gameSelect"
+            class="game-select"
+        >
 
-            <button
-                class="confirm"
-                onclick="confirmKey()">
-                XÁC NHẬN KEY
-            </button>
+            <div class="select-title">
+                CHỌN PHIÊN BẢN GAME
+            </div>
 
             <div
-                id="keyStatus"
-                class="status">
-            </div>
-
-        </div>
-
-
-        <!-- CHỌN GAME -->
-        <div id="gamePanel">
-
-            <div class="status">
-                Chọn phiên bản Free Fire
-            </div>
-
-            <button
                 class="game"
-                onclick="selectGame('MAX')">
+                onclick="selectGame(this,'Free Fire MAX')"
+            >
                 FREE FIRE MAX
-            </button>
+            </div>
+
+            <div
+                class="game"
+                onclick="selectGame(this,'Free Fire TH')"
+            >
+                FREE FIRE TH
+            </div>
 
             <button
-                class="game"
-                onclick="selectGame('TH')">
-                FREE FIRE TH
+                class="btn"
+                onclick="enterGame()"
+            >
+                TIẾP TỤC
             </button>
 
         </div>
 
     </div>
 
-</div>
+
+    <!-- OPEN MENU -->
+    <button
+        id="openMenu"
+        onclick="openMenu()"
+    >
+        MỞ MENU
+    </button>
 
 
-<!-- AVATAR NỔI -->
+    <!-- MENU -->
+    <div id="menu">
 
-<div id="floatingAvatar">
+        <div class="menu-header">
 
-    <div class="avatar-inner"></div>
+            <h2>
+                HOANGTHUC MENU
+            </h2>
 
-</div>
+            <p>
+                FREE FIRE • HOANGTHUC
+            </p>
 
-
-<!-- MENU -->
-
-<div id="featureMenu">
-
-    <div class="menu-header">
-
-        <div class="username">
-            hoangthuc
         </div>
 
-        <!-- - CHỈ ĐÓNG MENU -->
+
+        <div class="menu-item">
+
+            <div>
+                <div class="item-name">
+                    AIMBOT 100%
+                </div>
+
+                <div class="item-status">
+                    HOANGTHUC
+                </div>
+            </div>
+
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+
+        <div class="menu-item">
+
+            <div>
+                <div class="item-name">
+                    ESP BOX RED
+                </div>
+
+                <div class="item-status">
+                    HOANGTHUC
+                </div>
+            </div>
+
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+
+        <div class="menu-item">
+
+            <div>
+                <div class="item-name">
+                    FPS BOOST
+                </div>
+
+                <div class="item-status">
+                    PERFORMANCE
+                </div>
+            </div>
+
+            <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+
+        <div class="menu-item">
+
+            <div>
+                <div class="item-name">
+                    GIAO DIỆN NEON
+                </div>
+
+                <div class="item-status">
+                    VISUAL
+                </div>
+            </div>
+
+            <label class="switch">
+                <input type="checkbox" checked>
+                <span class="slider"></span>
+            </label>
+
+        </div>
+
+
         <button
-            class="menu-btn minus"
-            onclick="closeMenu(event)">
-            −
+            class="close-menu"
+            onclick="closeMenu()"
+        >
+            TẮT MENU
         </button>
 
-        <!-- × TẮT TOÀN BỘ -->
-        <button
-            class="menu-btn close"
-            onclick="closeAll(event)">
-            ×
-        </button>
-
-    </div>
-
-
-    <div class="feature">
-
-        <div class="feature-name">
-            Aim neck
-        </div>
-
-        <div
-            id="aimState"
-            class="feature-state">
-            Đã tắt
-        </div>
-
-        <div
-            id="aimSwitch"
-            class="switch"
-            onclick="toggleFeature('aim')">
-        </div>
-
-    </div>
-
-
-    <div class="feature">
-
-        <div class="feature-name">
-            Esp moco
-        </div>
-
-        <div
-            id="espState"
-            class="feature-state">
-            Đã tắt
-        </div>
-
-        <div
-            id="espSwitch"
-            class="switch"
-            onclick="toggleFeature('esp')">
-        </div>
-
     </div>
 
 </div>
-
-
-<div id="toast" class="toast"></div>
 
 
 <script>
 
 /* =========================
-   CẤU HÌNH KEY
+   VARIABLES
 ========================= */
 
-const VALID_KEY = "HVTH-PROXY-7812";
-
-const GET_KEY_URL =
-    "https://link4m.org/HPQEIsnw";
+let selectedGame = null;
 
 
 /* =========================
-   ELEMENT
+   LOADING
 ========================= */
 
-const startPanel =
-    document.getElementById("startPanel");
+window.addEventListener("load", () => {
 
-const keyPanel =
-    document.getElementById("keyPanel");
+    setTimeout(() => {
 
-const gamePanel =
-    document.getElementById("gamePanel");
+        document.getElementById("loading").style.opacity = "0";
 
-const keyInput =
-    document.getElementById("keyInput");
+        setTimeout(() => {
 
-const keyStatus =
-    document.getElementById("keyStatus");
+            document.getElementById("loading").style.display = "none";
 
-const avatar =
-    document.getElementById("floatingAvatar");
+            document
+                .getElementById("app")
+                .classList.add("show");
 
-const menu =
-    document.getElementById("featureMenu");
+        },700);
+
+    },1000);
+
+});
 
 
 /* =========================
-   TRẠNG THÁI
+   NOTICE
 ========================= */
 
-let aimEnabled =
-    localStorage.getItem("hvth_aim") === "true";
+function notice(text){
 
-let espEnabled =
-    localStorage.getItem("hvth_esp") === "true";
+    const box =
+        document.getElementById("notice");
 
-let avatarX =
-    Number(localStorage.getItem("hvth_avatar_x")) || 20;
+    box.textContent = text;
 
-let avatarY =
-    Number(localStorage.getItem("hvth_avatar_y")) || 200;
+    box.classList.add("show");
 
-let isDragging=false;
-let moved=false;
+    setTimeout(() => {
 
-let pointerStartX=0;
-let pointerStartY=0;
+        box.classList.remove("show");
 
-let avatarStartX=0;
-let avatarStartY=0;
-
-
-/* =========================
-   BẮT ĐẦU
-========================= */
-
-function startProxy(){
-
-    startPanel.style.display="none";
-
-    keyPanel.style.display="block";
-
+    },2200);
 }
 
 
 /* =========================
-   GET KEY
+   TRANSITION
 ========================= */
 
-function getKey(){
+function transition(callback){
 
-    window.open(
-        GET_KEY_URL,
-        "_blank"
-    );
+    const layer =
+        document.getElementById("transition");
 
+    layer.classList.add("active");
+
+    setTimeout(() => {
+
+        callback();
+
+        setTimeout(() => {
+
+            layer.classList.remove("active");
+
+        },250);
+
+    },500);
 }
 
 
 /* =========================
-   XÁC NHẬN KEY
+   VERIFY KEY
 ========================= */
 
-function confirmKey(){
+function verifyKey(){
 
     const key =
-        keyInput.value.trim();
+        document
+        .getElementById("keyInput")
+        .value
+        .trim();
 
-    if(key === VALID_KEY){
+    if(!key){
 
-        localStorage.setItem(
-            "hvth_key",
-            key
-        );
+        notice("VUI LÒNG NHẬP KEY");
 
-        keyPanel.style.display="none";
-
-        gamePanel.style.display="block";
-
-        showToast(
-            "KEY hợp lệ"
-        );
-
-    }else{
-
-        keyStatus.textContent =
-            "KEY không hợp lệ";
-
-        keyStatus.style.color =
-            "#ff4965";
-
+        return;
     }
+
+    transition(() => {
+
+        document
+            .getElementById("gameSelect")
+            .style.display = "block";
+
+        notice("KEY ĐÃ ĐƯỢC XÁC NHẬN");
+
+    });
 
 }
 
 
 /* =========================
-   CHỌN GAME
+   SELECT GAME
 ========================= */
 
-function selectGame(type){
+function selectGame(element,game){
 
-    gamePanel.style.display="none";
+    document
+        .querySelectorAll(".game")
+        .forEach(el =>
+            el.classList.remove("selected")
+        );
 
-    /*
-       QUAN TRỌNG:
-       Chỉ hiện avatar.
-       KHÔNG tự mở menu.
-    */
+    element.classList.add("selected");
 
-    avatar.style.display="flex";
+    selectedGame = game;
 
-    setAvatarPosition();
+    notice("ĐÃ CHỌN " + game.toUpperCase());
+}
 
-    menu.style.display="none";
 
-    showToast(
-        "Đã chọn FREE FIRE " + type
-    );
+/* =========================
+   ENTER GAME
+========================= */
+
+function enterGame(){
+
+    if(!selectedGame){
+
+        notice("HÃY CHỌN FREE FIRE");
+
+        return;
+    }
+
+    transition(() => {
+
+        document
+            .querySelector(".main-card")
+            .classList.add("hidden");
+
+        document
+            .getElementById("openMenu")
+            .style.display = "block";
+
+        notice(
+            selectedGame.toUpperCase()
+            + " ĐÃ ĐƯỢC CHỌN"
+        );
+
+    });
 
 }
 
 
 /* =========================
-   BẤM AVATAR
+   OPEN MENU
 ========================= */
 
-avatar.addEventListener(
-    "click",
-    function(){
+function openMenu(){
 
-        if(isDragging) return;
-
-        if(menu.style.display==="block"){
-
-            menu.style.display="none";
-
-        }else{
-
-            menu.style.display="block";
-
-            updateMenuPosition();
-
-        }
-
-    }
-);
-
-
-/* =========================
-   DẤU -
-========================= */
-
-function closeMenu(e){
-
-    e.stopPropagation();
-
-    menu.style.display="none";
+    document
+        .getElementById("menu")
+        .classList.add("active");
 
 }
 
 
 /* =========================
-   DẤU ×
+   CLOSE MENU
 ========================= */
 
-function closeAll(e){
+function closeMenu(){
 
-    e.stopPropagation();
-
-    menu.style.display="none";
-
-    avatar.style.display="none";
-
-    aimEnabled=false;
-    espEnabled=false;
-
-    localStorage.removeItem("hvth_aim");
-    localStorage.removeItem("hvth_esp");
-
-    updateFeatureUI();
-
-    showToast(
-        "Đã tắt toàn bộ"
-    );
+    document
+        .getElementById("menu")
+        .classList.remove("active");
 
 }
 
 
 /* =========================
-   AIM / ESP
+   PARTICLES
 ========================= */
 
-function toggleFeature(type){
+function createParticles(){
 
-    if(type==="aim"){
+    for(let i=0;i<35;i++){
 
-        aimEnabled=!aimEnabled;
+        const p =
+            document.createElement("div");
 
-        localStorage.setItem(
-            "hvth_aim",
-            aimEnabled
-        );
+        p.className = "particle";
 
+        p.style.left =
+            Math.random()*100 + "%";
+
+        p.style.animationDuration =
+            (4 + Math.random()*7) + "s";
+
+        p.style.animationDelay =
+            Math.random()*5 + "s";
+
+        document.body.appendChild(p);
     }
-
-    if(type==="esp"){
-
-        espEnabled=!espEnabled;
-
-        localStorage.setItem(
-            "hvth_esp",
-            espEnabled
-        );
-
-    }
-
-    updateFeatureUI();
 
 }
 
-
-function updateFeatureUI(){
-
-    const aimSwitch =
-        document.getElementById("aimSwitch");
-
-    const espSwitch =
-        document.getElementById("espSwitch");
-
-    const aimState =
-        document.getElementById("aimState");
-
-    const espState =
-        document.getElementById("espState");
-
-
-    aimSwitch.classList.toggle(
-        "on",
-        aimEnabled
-    );
-
-    espSwitch.classList.toggle(
-        "on",
-        espEnabled
-    );
-
-
-    aimState.textContent =
-        aimEnabled
-        ? "Đã kích hoạt"
-        : "Đã tắt";
-
-
-    espState.textContent =
-        espEnabled
-        ? "Đã kích hoạt"
-        : "Đã tắt";
-
-}
-
-
-/* =========================
-   AVATAR POSITION
-========================= */
-
-function setAvatarPosition(){
-
-    const maxX =
-        window.innerWidth -
-        avatar.offsetWidth;
-
-    const maxY =
-        window.innerHeight -
-        avatar.offsetHeight;
-
-    avatarX =
-        Math.max(
-            0,
-            Math.min(avatarX,maxX)
-        );
-
-    avatarY =
-        Math.max(
-            0,
-            Math.min(avatarY,maxY)
-        );
-
-    avatar.style.left =
-        avatarX+"px";
-
-    avatar.style.top =
-        avatarY+"px";
-
-}
-
-
-/* =========================
-   MENU ĐI THEO AVATAR
-========================= */
-
-function updateMenuPosition(){
-
-    const rect =
-        avatar.getBoundingClientRect();
-
-    const menuWidth = 280;
-
-    let x =
-        rect.right + 10;
-
-    let y =
-        rect.top;
-
-
-    if(
-        x + menuWidth >
-        window.innerWidth
-    ){
-
-        x =
-            rect.left -
-            menuWidth -
-            10;
-
-    }
-
-
-    if(x < 5){
-        x=5;
-    }
-
-
-    if(
-        y + 180 >
-        window.innerHeight
-    ){
-
-        y =
-            window.innerHeight -
-            190;
-
-    }
-
-
-    if(y < 5){
-        y=5;
-    }
-
-
-    menu.style.left =
-        x+"px";
-
-    menu.style.top =
-        y+"px";
-
-}
-
-
-/* =========================
-   KÉO AVATAR
-========================= */
-
-avatar.addEventListener(
-    "pointerdown",
-    function(e){
-
-        isDragging=false;
-        moved=false;
-
-        pointerStartX =
-            e.clientX;
-
-        pointerStartY =
-            e.clientY;
-
-        avatarStartX =
-            avatar.offsetLeft;
-
-        avatarStartY =
-            avatar.offsetTop;
-
-        avatar.setPointerCapture(
-            e.pointerId
-        );
-
-    }
-);
-
-
-avatar.addEventListener(
-    "pointermove",
-    function(e){
-
-        const dx =
-            e.clientX -
-            pointerStartX;
-
-        const dy =
-            e.clientY -
-            pointerStartY;
-
-
-        if(
-            Math.abs(dx)>5 ||
-            Math.abs(dy)>5
-        ){
-
-            moved=true;
-            isDragging=true;
-
-        }
-
-
-        if(!moved) return;
-
-
-        avatarX =
-            avatarStartX + dx;
-
-        avatarY =
-            avatarStartY + dy;
-
-
-        setAvatarPosition();
-
-
-        if(
-            menu.style.display==="block"
-        ){
-
-            updateMenuPosition();
-
-        }
-
-    }
-);
-
-
-avatar.addEventListener(
-    "pointerup",
-    function(){
-
-        localStorage.setItem(
-            "hvth_avatar_x",
-            avatarX
-        );
-
-        localStorage.setItem(
-            "hvth_avatar_y",
-            avatarY
-        );
-
-
-        setTimeout(
-            ()=>{
-                isDragging=false;
-            },
-            80
-        );
-
-    }
-);
-
-
-/* =========================
-   TOAST
-========================= */
-
-function showToast(text){
-
-    const toast =
-        document.getElementById("toast");
-
-    toast.textContent=text;
-
-    toast.classList.add("show");
-
-    setTimeout(
-        ()=>{
-            toast.classList.remove("show");
-        },
-        1600
-    );
-
-}
-
-
-/* =========================
-   RESIZE
-========================= */
-
-window.addEventListener(
-    "resize",
-    function(){
-
-        setAvatarPosition();
-
-        if(
-            menu.style.display==="block"
-        ){
-
-            updateMenuPosition();
-
-        }
-
-    }
-);
-
-
-/* =========================
-   KHÔI PHỤC
-========================= */
-
-updateFeatureUI();
+createParticles();
 
 </script>
 
 </body>
-    </html>
+            </html>
