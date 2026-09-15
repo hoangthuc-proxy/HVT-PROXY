@@ -1,10 +1,13 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
+
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-               maximum-scale=1.0,user-scalable=no">
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
 
 <title>HOANGTHUC-PROXY</title>
 
@@ -18,384 +21,474 @@
 
 html,body{
     width:100%;
-    height:100%;
-    overflow:hidden;
+    min-height:100%;
     font-family:Arial,Helvetica,sans-serif;
-    background:#050505;
-    color:white;
+    background:#02050a;
+    color:#fff;
+    overflow-x:hidden;
 }
 
+/* BACKGROUND */
+
 body{
+    min-height:100vh;
     background:
-        linear-gradient(
-            135deg,
-            rgba(0,0,0,.45),
-            rgba(0,20,40,.25)
-        ),
-        url("bg.png") center/cover no-repeat fixed;
+        radial-gradient(circle at 20% 20%,rgba(0,217,255,.13),transparent 30%),
+        radial-gradient(circle at 80% 80%,rgba(255,0,90,.12),transparent 30%),
+        linear-gradient(135deg,#02050a,#07111c,#02050a);
 }
+
+/* NEON GRID */
 
 body::before{
     content:"";
     position:fixed;
     inset:0;
-    background:
-        radial-gradient(
-            circle at center,
-            transparent 20%,
-            rgba(0,0,0,.72) 100%
-        );
+    pointer-events:none;
+    opacity:.16;
+
+    background-image:
+        linear-gradient(rgba(0,217,255,.12) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,217,255,.12) 1px,transparent 1px);
+
+    background-size:45px 45px;
+
+    animation:gridMove 12s linear infinite;
+}
+
+@keyframes gridMove{
+    from{
+        transform:translateY(0);
+    }
+    to{
+        transform:translateY(45px);
+    }
+}
+
+/* LOADING */
+
+.loading-line{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:3px;
+
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #00d9ff,
+        #fff,
+        #00d9ff,
+        transparent
+    );
+
+    box-shadow:0 0 15px #00d9ff;
+
+    animation:loading 2s linear infinite;
+
+    z-index:9999;
+}
+
+@keyframes loading{
+    0%{
+        transform:translateX(-100%);
+    }
+    100%{
+        transform:translateX(100%);
+    }
+}
+
+/* PAGE */
+
+.page{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:25px 15px;
+
+    opacity:1;
+    transform:scale(1);
+    transition:
+        opacity .45s ease,
+        transform .45s ease;
+}
+
+.page.hide{
+    opacity:0;
+    transform:scale(.96);
     pointer-events:none;
 }
 
-#loading{
-    position:fixed;
-    inset:0;
-    z-index:9999;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-direction:column;
-    background:#030303;
-    transition:.8s;
+.page.show{
+    animation:pageIn .5s ease;
 }
 
-.loading-title{
-    font-size:28px;
-    font-weight:900;
-    letter-spacing:3px;
-    color:#00d9ff;
-    text-shadow:
-        0 0 10px #00d9ff,
-        0 0 30px #0077ff;
+@keyframes pageIn{
+    from{
+        opacity:0;
+        transform:translateY(25px) scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
 }
 
-.loading-line{
-    width:180px;
-    height:3px;
-    margin-top:20px;
-    background:#111;
-    overflow:hidden;
-    border-radius:20px;
-}
-
-.loading-line::after{
-    content:"";
-    display:block;
-    width:50%;
-    height:100%;
-    background:#00d9ff;
-    box-shadow:0 0 15px #00d9ff;
-    animation:load 1s infinite;
-}
-
-@keyframes load{
-    0%{transform:translateX(-100%)}
-    100%{transform:translateX(300%)}
-}
-
-#app{
-    position:relative;
-    width:100%;
-    height:100%;
-    opacity:0;
-    transform:scale(1.05);
-    transition:1s;
-}
-
-#app.show{
-    opacity:1;
-    transform:scale(1);
-}
+/* HEADER */
 
 .header{
-    position:absolute;
-    top:25px;
-    left:50%;
-    transform:translateX(-50%);
-    width:92%;
     text-align:center;
-    z-index:10;
+    margin-bottom:25px;
 }
 
 .logo{
-    font-size:25px;
-    font-weight:1000;
+    font-size:30px;
+    font-weight:900;
     letter-spacing:2px;
-    color:white;
+
+    color:#00d9ff;
+
     text-shadow:
         0 0 5px #00d9ff,
-        0 0 15px #00aaff,
-        0 0 35px #0066ff;
+        0 0 15px #00d9ff,
+        0 0 35px rgba(0,217,255,.7);
 }
 
 .sub{
-    margin-top:5px;
+    margin-top:8px;
     font-size:11px;
-    font-weight:bold;
+    color:#8ba9b8;
     letter-spacing:2px;
-    color:#00d9ff;
 }
 
+/* CARD */
+
 .main-card{
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-    width:min(88%,380px);
+    width:100%;
+    max-width:430px;
+
     padding:25px;
-    border:1px solid rgba(0,217,255,.5);
-    border-radius:20px;
+
+    border:1px solid rgba(0,217,255,.35);
+
+    border-radius:18px;
 
     background:
         linear-gradient(
             145deg,
-            rgba(0,0,0,.72),
-            rgba(0,35,60,.5)
+            rgba(0,217,255,.07),
+            rgba(255,255,255,.025)
         );
 
-    backdrop-filter:blur(12px);
-
     box-shadow:
-        0 0 15px rgba(0,180,255,.35),
-        inset 0 0 30px rgba(0,140,255,.08);
+        0 0 30px rgba(0,217,255,.08),
+        inset 0 0 25px rgba(0,217,255,.025);
 
-    transition:.5s;
-}
-
-.main-card:hover{
-    box-shadow:
-        0 0 30px rgba(0,200,255,.55),
-        inset 0 0 30px rgba(0,140,255,.15);
+    backdrop-filter:blur(10px);
 }
 
 .card-title{
     text-align:center;
-    font-size:19px;
-    font-weight:900;
-    margin-bottom:18px;
-}
-
-.key-input{
-    width:100%;
-    height:52px;
-    border:1px solid #00cfff;
-    outline:none;
-    border-radius:12px;
-    background:rgba(0,0,0,.65);
-    color:white;
-    text-align:center;
-    font-size:15px;
+    font-size:18px;
     font-weight:bold;
 
-    box-shadow:
-        inset 0 0 10px rgba(0,180,255,.1),
-        0 0 10px rgba(0,180,255,.15);
+    color:#00d9ff;
 
-    transition:.3s;
+    margin-bottom:20px;
+
+    letter-spacing:1px;
 }
 
-.key-input:focus{
-    border-color:#fff;
-    box-shadow:
-        0 0 15px #00cfff,
-        inset 0 0 15px rgba(0,200,255,.15);
-}
-
-.key-input::placeholder{
-    color:#777;
-}
+/* BUTTON */
 
 .btn{
     width:100%;
-    height:50px;
-    margin-top:15px;
-    border:none;
-    border-radius:12px;
+    border:1px solid #00d9ff;
+
+    padding:14px;
+    margin-top:12px;
+
+    border-radius:10px;
+
+    background:rgba(0,217,255,.08);
+    color:#fff;
+
+    font-weight:bold;
+    font-size:13px;
+
     cursor:pointer;
 
-    color:white;
-    font-size:15px;
-    font-weight:900;
-    letter-spacing:1px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #006eff,
-            #00cfff,
-            #006eff
-        );
-
-    background-size:200% 100%;
+    transition:.25s;
 
     box-shadow:
-        0 0 15px rgba(0,180,255,.45);
-
-    transition:.3s;
-}
-
-.btn:active{
-    transform:scale(.94);
+        0 0 10px rgba(0,217,255,.08);
 }
 
 .btn:hover{
-    background-position:100% 0;
+    background:#00d9ff;
+    color:#001018;
+
     box-shadow:
-        0 0 25px rgba(0,210,255,.7);
+        0 0 20px rgba(0,217,255,.5);
 }
 
-.game-select{
-    display:none;
-    margin-top:18px;
-    animation:slideUp .5s ease;
+.btn:active{
+    transform:scale(.97);
 }
 
-@keyframes slideUp{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+/* GAME BUTTONS */
+
+.game-button{
+    width:100%;
+    padding:18px 15px;
+
+    margin-bottom:12px;
+
+    border:1px solid rgba(0,217,255,.4);
+    border-radius:12px;
+
+    background:rgba(0,217,255,.06);
+
+    color:#fff;
+
+    font-size:15px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.25s;
 }
 
-.select-title{
-    font-size:12px;
+.game-button:hover{
+    border-color:#00d9ff;
+
+    background:rgba(0,217,255,.15);
+
+    box-shadow:
+        0 0 20px rgba(0,217,255,.2);
+
+    transform:translateY(-2px);
+}
+
+.game-button:active{
+    transform:scale(.97);
+}
+
+/* KEY */
+
+.key-input{
+    width:100%;
+
+    padding:14px;
+
+    border-radius:10px;
+
+    border:1px solid rgba(0,217,255,.4);
+
+    outline:none;
+
+    background:rgba(0,0,0,.4);
+
+    color:#fff;
+
+    font-size:13px;
+
     text-align:center;
-    color:#aaa;
+
+    transition:.25s;
+}
+
+.key-input:focus{
+    border-color:#00d9ff;
+
+    box-shadow:
+        0 0 15px rgba(0,217,255,.2);
+}
+
+.key-input::placeholder{
+    color:#637783;
+}
+
+/* SMALL TEXT */
+
+.small-text{
+    text-align:center;
+
+    margin-top:10px;
+
+    color:#667d89;
+
+    font-size:10px;
+    line-height:1.5;
+
+    letter-spacing:.5px;
+}
+
+/* STATUS */
+
+.status{
+    min-height:18px;
+
+    margin-top:12px;
+
+    text-align:center;
+
+    font-size:11px;
+    font-weight:bold;
+}
+
+.status.error{
+    color:#ff315f;
+
+    text-shadow:
+        0 0 10px rgba(255,49,95,.5);
+}
+
+.status.success{
+    color:#00ffb7;
+
+    text-shadow:
+        0 0 10px rgba(0,255,183,.5);
+}
+
+/* DOWNLOAD */
+
+.download-title{
+    text-align:center;
+
+    color:#00d9ff;
+
+    font-size:18px;
+    font-weight:bold;
+
     margin-bottom:10px;
 }
 
-.game{
+.download-sub{
+    text-align:center;
+
+    color:#708793;
+
+    font-size:11px;
+
+    margin-bottom:20px;
+}
+
+.download-button{
+    display:block;
+
     width:100%;
-    padding:15px;
-    margin-top:10px;
 
-    border:1px solid rgba(0,210,255,.4);
-    border-radius:12px;
+    padding:16px;
 
-    background:rgba(0,0,0,.55);
+    border-radius:11px;
 
-    color:white;
-    font-weight:900;
-
-    cursor:pointer;
-    transition:.3s;
-}
-
-.game:hover{
-    border-color:#00d9ff;
-    box-shadow:0 0 15px rgba(0,210,255,.4);
-}
-
-.game.selected{
-    background:
-        linear-gradient(
-            90deg,
-            rgba(0,110,255,.4),
-            rgba(0,210,255,.2)
-        );
-
-    border-color:#00d9ff;
-    box-shadow:
-        0 0 15px rgba(0,210,255,.5);
-}
-
-#menu{
-    position:absolute;
-    left:50%;
-    top:50%;
-    transform:translate(-50%,-50%) scale(.8);
-
-    width:min(90%,400px);
-
-    padding:20px;
-
-    opacity:0;
-    visibility:hidden;
-
-    border-radius:20px;
     border:1px solid #00d9ff;
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(0,0,0,.88),
-            rgba(0,30,55,.8)
-        );
+    background:rgba(0,217,255,.1);
 
-    backdrop-filter:blur(15px);
+    color:#fff;
 
-    box-shadow:
-        0 0 30px rgba(0,190,255,.5);
+    text-align:center;
 
-    transition:.4s;
+    text-decoration:none;
 
-    z-index:100;
+    font-size:14px;
+    font-weight:bold;
+
+    transition:.25s;
 }
 
-#menu.active{
-    opacity:1;
-    visibility:visible;
-    transform:translate(-50%,-50%) scale(1);
+.download-button:hover{
+    background:#00d9ff;
+    color:#001018;
+
+    box-shadow:
+        0 0 20px rgba(0,217,255,.5);
+}
+
+/* FREE FIRE MENU */
+
+.menu{
+    width:100%;
+    max-width:430px;
 }
 
 .menu-header{
     text-align:center;
-    margin-bottom:15px;
+    margin-bottom:20px;
 }
 
 .menu-header h2{
-    font-size:22px;
     color:#00d9ff;
-    text-shadow:0 0 15px #00d9ff;
+
+    font-size:22px;
+
+    text-shadow:
+        0 0 15px rgba(0,217,255,.5);
 }
 
 .menu-header p{
-    margin-top:5px;
+    margin-top:6px;
+
+    color:#718894;
+
     font-size:10px;
-    color:#888;
+
     letter-spacing:1px;
 }
 
 .menu-item{
     display:flex;
+
     align-items:center;
     justify-content:space-between;
 
-    margin-top:10px;
-    padding:14px;
+    padding:15px;
+
+    margin-bottom:10px;
 
     border-radius:12px;
 
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(0,217,255,.22);
 
-    transition:.3s;
+    background:rgba(255,255,255,.025);
+
+    transition:.25s;
 }
 
 .menu-item:hover{
-    border-color:#00d9ff;
-    box-shadow:0 0 15px rgba(0,210,255,.25);
+    border-color:rgba(0,217,255,.5);
+
+    background:rgba(0,217,255,.05);
 }
 
 .item-name{
-    font-size:14px;
-    font-weight:900;
+    font-size:13px;
+    font-weight:bold;
 }
 
 .item-status{
-    font-size:10px;
-    color:#00eaff;
+    margin-top:4px;
+
+    color:#637783;
+
+    font-size:9px;
+
+    letter-spacing:1px;
 }
+
+/* SWITCH */
 
 .switch{
     position:relative;
+
     width:45px;
-    height:23px;
+    height:24px;
 }
 
 .switch input{
@@ -405,212 +498,183 @@ body::before{
 .slider{
     position:absolute;
     inset:0;
-    background:#222;
-    border-radius:30px;
-    border:1px solid #555;
-    transition:.3s;
+
+    cursor:pointer;
+
+    border-radius:20px;
+
+    background:#17242b;
+
+    border:1px solid #344851;
+
+    transition:.25s;
 }
 
 .slider::before{
     content:"";
+
     position:absolute;
-    width:17px;
-    height:17px;
+
+    width:18px;
+    height:18px;
+
     left:2px;
     top:2px;
 
-    background:white;
     border-radius:50%;
 
-    transition:.3s;
+    background:#70808a;
+
+    transition:.25s;
 }
 
 .switch input:checked + .slider{
-    background:#006eff;
+    background:rgba(0,217,255,.2);
+
     border-color:#00d9ff;
-    box-shadow:0 0 10px #00cfff;
+
+    box-shadow:
+        0 0 10px rgba(0,217,255,.25);
 }
 
 .switch input:checked + .slider::before{
     transform:translateX(21px);
+
+    background:#00d9ff;
+
+    box-shadow:
+        0 0 10px #00d9ff;
 }
+
+/* CLOSE */
 
 .close-menu{
     width:100%;
-    height:45px;
-    margin-top:15px;
 
-    border:none;
+    margin-top:12px;
+
+    padding:13px;
+
     border-radius:10px;
 
-    background:#111;
-    border:1px solid #333;
+    border:1px solid rgba(255,49,95,.5);
 
-    color:white;
-    font-weight:900;
+    background:rgba(255,49,95,.06);
+
+    color:#ff6687;
+
+    font-weight:bold;
 
     cursor:pointer;
 }
 
-.close-menu:active{
-    transform:scale(.95);
-}
-
-#openMenu{
-    display:none;
-
-    position:absolute;
-    bottom:25px;
-    left:50%;
-    transform:translateX(-50%);
-
-    width:180px;
-    height:48px;
-
-    border:none;
-    border-radius:14px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #005cff,
-            #00cfff
-        );
-
-    color:white;
-    font-weight:900;
-    letter-spacing:1px;
-
-    box-shadow:
-        0 0 20px rgba(0,190,255,.5);
-
-    z-index:20;
-}
-
-#openMenu:active{
-    transform:translateX(-50%) scale(.94);
-}
-
-#notice{
-    position:fixed;
-    top:20px;
-    left:50%;
-    transform:translate(-50%,-100px);
-
-    min-width:240px;
-    padding:13px 18px;
-
-    border-radius:12px;
-    border:1px solid #00d9ff;
-
-    background:rgba(0,10,20,.92);
-
-    color:white;
-    text-align:center;
-    font-size:12px;
-    font-weight:bold;
-
-    box-shadow:0 0 20px rgba(0,200,255,.4);
-
-    opacity:0;
-    transition:.4s;
-
-    z-index:99999;
-}
-
-#notice.show{
-    opacity:1;
-    transform:translate(-50%,0);
-}
-
-#transition{
-    position:fixed;
-    inset:0;
-    z-index:9998;
-
-    background:#000;
-
-    opacity:0;
-    visibility:hidden;
-
-    transition:.5s;
-}
-
-#transition.active{
-    opacity:1;
-    visibility:visible;
-}
-
-.particle{
-    position:fixed;
-    width:3px;
-    height:3px;
-    background:#00d9ff;
-    border-radius:50%;
-    box-shadow:0 0 10px #00d9ff;
-
-    pointer-events:none;
-
-    animation:particleMove linear infinite;
-}
-
-@keyframes particleMove{
-    from{
-        transform:translateY(110vh);
-        opacity:0;
-    }
-
-    20%{
-        opacity:1;
-    }
-
-    80%{
-        opacity:1;
-    }
-
-    to{
-        transform:translateY(-10vh);
-        opacity:0;
-    }
-}
+/* HIDDEN */
 
 .hidden{
     display:none !important;
+}
+
+/* MOBILE */
+
+@media(max-width:480px){
+
+    .logo{
+        font-size:25px;
+    }
+
+    .main-card{
+        padding:20px;
+    }
+
 }
 </style>
 </head>
 
 <body>
 
-<div id="loading">
-    <div class="loading-title">
-        HOANGTHUC-PROXY
-    </div>
+<div class="loading-line"></div>
 
-    <div class="loading-line"></div>
-</div>
 
-<div id="transition"></div>
+<!-- =========================
+     TRANG CHÍNH
+========================= -->
 
-<div id="notice"></div>
-
-<div id="app">
+<div id="homePage" class="page">
 
     <div class="header">
+
         <div class="logo">
             HOANGTHUC-PROXY
         </div>
 
         <div class="sub">
-            AIMBOT 100% • ESP BOX RED
+            GAME HUB • HOANGTHUC
         </div>
+
     </div>
+
 
     <div class="main-card">
 
         <div class="card-title">
+            CHỌN MỤC
+        </div>
+
+
+        <button
+            class="game-button"
+            onclick="openKeyPage('Free Fire')"
+        >
+            FREE FIRE
+        </button>
+
+
+        <button
+            class="game-button"
+            onclick="openKeyPage('Minecraft')"
+        >
+            MINECRAFT
+        </button>
+
+
+        <button
+            class="game-button"
+            onclick="getKey()"
+        >
+            GET KEY
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     NHẬP KEY
+========================= -->
+
+<div id="keyPage" class="page hidden">
+
+    <div class="header">
+
+        <div class="logo">
+            HOANGTHUC-PROXY
+        </div>
+
+        <div id="keySub" class="sub">
+            XÁC THỰC
+        </div>
+
+    </div>
+
+
+    <div class="main-card">
+
+        <div id="keyTitle" class="card-title">
             XÁC THỰC KEY
         </div>
+
 
         <input
             id="keyInput"
@@ -620,6 +684,7 @@ body::before{
             autocomplete="off"
         >
 
+
         <button
             class="btn"
             onclick="verifyKey()"
@@ -627,56 +692,104 @@ body::before{
             XÁC NHẬN KEY
         </button>
 
-        <!-- GET KEY: PHẦN ĐƯỢC THÊM -->
+
+        <div id="status"
+             class="status">
+        </div>
+
+
+        <div class="small-text">
+            Vui lòng nhập đúng key để tiếp tục.
+        </div>
+
+
         <button
             class="btn"
-            onclick="getKey()"
+            onclick="goHome()"
         >
-            GET KEY
+            QUAY LẠI
         </button>
 
-        <div
-            id="gameSelect"
-            class="game-select"
-        >
+    </div>
 
-            <div class="select-title">
-                CHỌN PHIÊN BẢN GAME
-            </div>
+</div>
 
-            <div
-                class="game"
-                onclick="selectGame(this,'Free Fire MAX')"
-            >
-                FREE FIRE MAX
-            </div>
 
-            <div
-                class="game"
-                onclick="selectGame(this,'Free Fire TH')"
-            >
-                FREE FIRE TH
-            </div>
 
-            <button
-                class="btn"
-                onclick="enterGame()"
-            >
-                TIẾP TỤC
-            </button>
+<!-- =========================
+     MINECRAFT DOWNLOAD
+========================= -->
 
+<div id="minecraftPage" class="page hidden">
+
+    <div class="header">
+
+        <div class="logo">
+            HOANGTHUC-PROXY
+        </div>
+
+        <div class="sub">
+            MINECRAFT
         </div>
 
     </div>
 
-    <button
-        id="openMenu"
-        onclick="openMenu()"
-    >
-        MỞ MENU
-    </button>
 
-    <div id="menu">
+    <div class="main-card">
+
+        <div class="download-title">
+            TẢI XUỐNG MENU MINECRAFT
+        </div>
+
+
+        <div class="download-sub">
+            KEY ĐÃ ĐƯỢC XÁC THỰC
+        </div>
+
+
+        <a
+            class="download-button"
+            href="https://link4m.org/3swXdvQT"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            TẢI XUỐNG MENU MINECRAFT
+        </a>
+
+
+        <button
+            class="btn"
+            onclick="goHome()"
+        >
+            QUAY LẠI
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     FREE FIRE MENU
+========================= -->
+
+<div id="freefirePage" class="page hidden">
+
+    <div class="header">
+
+        <div class="logo">
+            HOANGTHUC-PROXY
+        </div>
+
+        <div class="sub">
+            AIMBOT 100% • ESP BOX RED
+        </div>
+
+    </div>
+
+
+    <div class="main-card menu">
 
         <div class="menu-header">
 
@@ -690,9 +803,11 @@ body::before{
 
         </div>
 
+
         <div class="menu-item">
 
             <div>
+
                 <div class="item-name">
                     AIMBOT 100%
                 </div>
@@ -700,18 +815,25 @@ body::before{
                 <div class="item-status">
                     HOANGTHUC
                 </div>
+
             </div>
 
+
             <label class="switch">
+
                 <input type="checkbox">
+
                 <span class="slider"></span>
+
             </label>
 
         </div>
 
+
         <div class="menu-item">
 
             <div>
+
                 <div class="item-name">
                     ESP BOX RED
                 </div>
@@ -719,18 +841,25 @@ body::before{
                 <div class="item-status">
                     HOANGTHUC
                 </div>
+
             </div>
 
+
             <label class="switch">
+
                 <input type="checkbox">
+
                 <span class="slider"></span>
+
             </label>
 
         </div>
 
+
         <div class="menu-item">
 
             <div>
+
                 <div class="item-name">
                     FPS BOOST
                 </div>
@@ -738,18 +867,25 @@ body::before{
                 <div class="item-status">
                     PERFORMANCE
                 </div>
+
             </div>
 
+
             <label class="switch">
+
                 <input type="checkbox">
+
                 <span class="slider"></span>
+
             </label>
 
         </div>
 
+
         <div class="menu-item">
 
             <div>
+
                 <div class="item-name">
                     GIAO DIỆN NEON
                 </div>
@@ -757,18 +893,24 @@ body::before{
                 <div class="item-status">
                     VISUAL
                 </div>
+
             </div>
 
+
             <label class="switch">
+
                 <input type="checkbox" checked>
+
                 <span class="slider"></span>
+
             </label>
 
         </div>
 
+
         <button
             class="close-menu"
-            onclick="closeMenu()"
+            onclick="goHome()"
         >
             TẮT MENU
         </button>
@@ -777,65 +919,109 @@ body::before{
 
 </div>
 
+
+
 <script>
 
-let selectedGame = null;
-
-
 /* =========================
-   KEY CONFIG
+   CẤU HÌNH
 ========================= */
 
-const VALID_KEY = "HVTH-PROXY-7812";
+const CORRECT_KEY =
+    "key-hoangthuc-admin-7812";
 
 const GET_KEY_URL =
-    "https://link4m.org/go/HPQEIsnw";
+    "https://link4m.net/iP6smY";
+
+const MINECRAFT_URL =
+    "https://link4m.org/3swXdvQT";
 
 
-/* =========================
-   LOADING
-========================= */
+let selectedGame = "";
 
-window.addEventListener("load", () => {
-
-    setTimeout(() => {
-
-        document.getElementById("loading").style.opacity = "0";
-
-        setTimeout(() => {
-
-            document.getElementById("loading").style.display = "none";
-
-            document
-                .getElementById("app")
-                .classList.add("show");
-
-        },700);
-
-    },1000);
-
-});
 
 
 /* =========================
-   NOTICE
+   CHUYỂN TRANG
 ========================= */
 
-function notice(text){
+function showPage(page){
 
-    const box =
-        document.getElementById("notice");
+    const pages = document.querySelectorAll(".page");
 
-    box.textContent = text;
+    pages.forEach(p => {
 
-    box.classList.add("show");
+        p.classList.add("hidden");
+        p.classList.remove("show");
 
-    setTimeout(() => {
+    });
 
-        box.classList.remove("show");
 
-    },2200);
+    page.classList.remove("hidden");
+
+    /*
+       Cho trình duyệt có thời gian
+       render lại trước khi chạy animation.
+    */
+
+    requestAnimationFrame(() => {
+
+        page.classList.add("show");
+
+    });
+
 }
+
+
+
+/* =========================
+   TRANG CHÍNH
+========================= */
+
+function goHome(){
+
+    selectedGame = "";
+
+    document.getElementById("keyInput").value = "";
+
+    document.getElementById("status").textContent = "";
+
+    showPage(
+        document.getElementById("homePage")
+    );
+
+}
+
+
+
+/* =========================
+   CHỌN GAME
+========================= */
+
+function openKeyPage(game){
+
+    selectedGame = game;
+
+
+    document.getElementById("keyInput").value = "";
+
+    document.getElementById("status").textContent = "";
+
+
+    document.getElementById("keyTitle").textContent =
+        "KEY " + game.toUpperCase();
+
+
+    document.getElementById("keySub").textContent =
+        game.toUpperCase() + " • XÁC THỰC";
+
+
+    showPage(
+        document.getElementById("keyPage")
+    );
+
+}
+
 
 
 /* =========================
@@ -844,194 +1030,143 @@ function notice(text){
 
 function getKey(){
 
+    /*
+       Mở trang GET KEY.
+    */
+
     window.open(
         GET_KEY_URL,
-        "_blank"
+        "_blank",
+        "noopener,noreferrer"
     );
 
 }
 
 
+
 /* =========================
-   TRANSITION
+   XÁC NHẬN KEY
 ========================= */
 
-function transition(callback){
+function verifyKey(){
 
-    const layer =
-        document.getElementById("transition");
+    const input =
+        document.getElementById("keyInput");
 
-    layer.classList.add("active");
+    const status =
+        document.getElementById("status");
+
+
+    const key =
+        input.value.trim();
+
+
+    status.className = "status";
+
+
+    if(!key){
+
+        status.textContent =
+            "VUI LÒNG NHẬP KEY.";
+
+        status.classList.add("error");
+
+        return;
+
+    }
+
+
+    if(key !== CORRECT_KEY){
+
+        status.textContent =
+            "KEY KHÔNG ĐÚNG.";
+
+        status.classList.add("error");
+
+        return;
+
+    }
+
+
+    status.textContent =
+        "KEY HỢP LỆ.";
+
+    status.classList.add("success");
+
+
+    /*
+       Chờ một chút để người dùng
+       thấy trạng thái xác thực.
+    */
 
     setTimeout(() => {
 
-        callback();
+        if(selectedGame === "Minecraft"){
 
-        setTimeout(() => {
+            showPage(
+                document.getElementById(
+                    "minecraftPage"
+                )
+            );
 
-            layer.classList.remove("active");
+        }
 
-        },250);
+
+        else if(selectedGame === "Free Fire"){
+
+            showPage(
+                document.getElementById(
+                    "freefirePage"
+                )
+            );
+
+        }
 
     },500);
 
 }
 
 
+
 /* =========================
-   VERIFY KEY
+   ENTER KEY BẰNG PHÍM ENTER
 ========================= */
 
-function verifyKey(){
+document
+    .getElementById("keyInput")
+    .addEventListener(
+        "keydown",
+        function(event){
 
-    const key =
-        document
-        .getElementById("keyInput")
-        .value
-        .trim();
+            if(event.key === "Enter"){
 
-    if(!key){
+                verifyKey();
 
-        notice("VUI LÒNG NHẬP KEY");
+            }
 
-        return;
-    }
+        }
+    );
 
-    /* CHỈ KEY NÀY MỚI ĐƯỢC QUA */
-
-    if(key !== VALID_KEY){
-
-        notice("KEY KHÔNG HỢP LỆ");
-
-        return;
-    }
-
-    /* KEY ĐÚNG */
-
-    transition(() => {
-
-        document
-            .getElementById("gameSelect")
-            .style.display = "block";
-
-        notice("KEY ĐÃ ĐƯỢC XÁC NHẬN");
-
-    });
-
-}
 
 
 /* =========================
-   SELECT GAME
+   CLICK GET KEY
 ========================= */
 
-function selectGame(element,game){
+document.addEventListener(
+    "click",
+    function(event){
 
-    document
-        .querySelectorAll(".game")
-        .forEach(el =>
-            el.classList.remove("selected")
-        );
-
-    element.classList.add("selected");
-
-    selectedGame = game;
-
-    notice("ĐÃ CHỌN " + game.toUpperCase());
-
-}
-
-
-/* =========================
-   ENTER GAME
-========================= */
-
-function enterGame(){
-
-    if(!selectedGame){
-
-        notice("HÃY CHỌN FREE FIRE");
-
-        return;
-    }
-
-    transition(() => {
-
-        document
-            .querySelector(".main-card")
-            .classList.add("hidden");
-
-        document
-            .getElementById("openMenu")
-            .style.display = "block";
-
-        notice(
-            selectedGame.toUpperCase()
-            + " ĐÃ ĐƯỢC CHỌN"
-        );
-
-    });
-
-}
-
-
-/* =========================
-   OPEN MENU
-========================= */
-
-function openMenu(){
-
-    document
-        .getElementById("menu")
-        .classList.add("active");
-
-}
-
-
-/* =========================
-   CLOSE MENU
-========================= */
-
-function closeMenu(){
-
-    document
-        .getElementById("menu")
-        .classList.remove("active");
-
-}
-
-
-/* =========================
-   PARTICLES
-========================= */
-
-function createParticles(){
-
-    for(let i=0;i<35;i++){
-
-        const p =
-            document.createElement("div");
-
-        p.className = "particle";
-
-        p.style.left =
-            Math.random()*100 + "%";
-
-        p.style.animationDuration =
-            (4 + Math.random()*7) + "s";
-
-        p.style.animationDelay =
-            Math.random()*5 + "s";
-
-        document.body.appendChild(p);
+        /*
+           Không làm gì thêm ở đây.
+           Giữ riêng logic GET KEY
+           để tránh mở link ngoài ý muốn.
+        */
 
     }
-
-}
-
-createParticles();
+);
 
 </script>
 
 </body>
-      </html>
+</html>
