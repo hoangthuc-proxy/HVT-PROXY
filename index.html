@@ -64,7 +64,26 @@ function show(id){["intro","quiz","result"].forEach(x=>$(x).classList.toggle("hi
 function render(){let q=questions[index];$("counter").textContent=`CÂU ${index+1} / ${questions.length}`;$("percent").textContent=Math.round(index/questions.length*100)+"%";$("fill").style.width=(index/questions.length*100)+"%";$("question").textContent=q[0];$("answers").innerHTML="";$("next").classList.add("hidden");q[1].forEach((a,i)=>{let b=document.createElement("button");b.className="answer";b.innerHTML=`<b>${String.fromCharCode(65+i)}</b><span></span>`;b.querySelector("span").textContent=a;b.onclick=()=>{answers[index]=i;[...$("answers").children].forEach(x=>x.classList.remove("selected"));b.classList.add("selected");$("next").classList.remove("hidden");$("next").textContent=index===questions.length-1?"XEM KẾT QUẢ 🎉":"CÂU TIẾP THEO →"};$("answers").appendChild(b)});$("panel").classList.remove("fade");void $("panel").offsetWidth;$("panel").classList.add("fade")}
 $("start").onclick=()=>{index=0;answers=[];show("quiz");render()};
 $("next").onclick=()=>{if(answers[index]===undefined)return;if(index<questions.length-1){index++;render()}else finish()};
-function finish(){let n=answers.filter(x=>x!==undefined).length;let pct=Math.round(n/questions.length*100);$("fill").style.width="100%";$("percent").textContent="100%";$("score").textContent=pct+"%";let h,d;if(pct>=85){h="Bạn là tri kỷ hệ điều hành lỗi 🤝";d="Hiểu Thức đến mức đáng nghi. Có khi hai đứa cùng một server tấu hài."}else if(pct>=55){h="Bạn cũng khá thân đó 😎";d="Nắm được vài bí mật, nhưng Thức vẫn còn nhiều bí ẩn khó giải."}else{h="Bạn mới quen Thức hôm qua à? 💀";d="Kiến thức về Thức đang ở mức báo động. Hãy quan sát đối tượng thêm!"} $("headline").textContent=h;$("desc").textContent=d;show("result")}
+function finish(){
+ $("fill").style.width="100%";$("percent").textContent="100%";
+ const outcomes=[
+ ["Tri kỷ hệ điều hành lỗi 🤝","Hai đứa cùng một server tấu hài. Cần cách ly khỏi xã hội để tránh lây tiếng cười."],
+ ["Bạn thân cấp quốc gia 🇻🇳","Thức vừa nghe tên bạn đã tự động bật chế độ báo động thân quen."],
+ ["Đồng bọn bất ổn 🤡","Không cần nói nhiều, chỉ cần nhìn nhau là biết sắp có chuyện."],
+ ["Fan cứng có giấy phép 🏅","Bạn hiểu Thức hơn cả hướng dẫn sử dụng của chính Thức."],
+ ["Bạn bè hệ tâm linh 🔮","Có kết nối vô hình, nhưng đôi lúc cả hai cùng mất sóng."],
+ ["Người quen trong truyền thuyết 👀","Biết vài chuyện về Thức, còn phần lớn chắc nghe kể lại ở căng tin."],
+ ["Bạn mới tải bản dùng thử 🧪","Độ hiểu biết đang chạy phiên bản demo. Vui lòng cập nhật thêm dữ liệu."],
+ ["Thức cũng không hiểu bạn 😭","Hai bộ não gặp nhau và cùng hiện thông báo: đã xảy ra lỗi."],
+ ["Đồng nghiệp của sự báo 💀","Ở cạnh nhau là năng lượng tấu hài tăng 300%, hàng xóm xin được yên tĩnh."],
+ ["Bạn là nhân chứng lịch sử 📸","Đã chứng kiến những pha xử lý đi vào lòng đất và vẫn chưa bỏ chạy."],
+ ["Tình bạn vượt giới hạn vũ trụ 🚀","NASA đang cân nhắc dùng tình bạn này làm nguồn năng lượng."],
+ ["Bạn hiểu Thức… theo cách riêng 🗿","Kết quả khó giải thích, nhưng tự tin là điều không ai có thể lấy đi."]
+ ];
+ const total=answers.reduce((sum,a,i)=>sum+((a*7+i*3+5)%11+1),0);
+ const pct=45+(total%56), pick=(total+answers.reduce((s,a)=>s+a,0))%outcomes.length;
+ $("score").textContent=pct+"%";$("headline").textContent=outcomes[pick][0];$("desc").textContent=outcomes[pick][1];show("result")
+}
 $("again").onclick=()=>{$("fill").style.width="0";show("intro")};
 $("share").onclick=()=>{let t=`Tôi đạt ${$("score").textContent} trong bài “Bạn hiểu gì về Thức?” 🤡`;if(navigator.share)navigator.share({title:"Bạn hiểu gì về Thức?",text:t}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(t).then(()=>alert("Đã sao chép kết quả!"));else alert(t)};
 </script></body></html>
