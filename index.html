@@ -1,89 +1,445 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bạn hiểu gì về Thức? 🤡</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SETTUP+SEETTING FREE FIRE HOANGTHUC</title>
+
+<link rel="icon" href="./icon.png">
+<link rel="manifest" href="./manifest.json">
+
+<meta name="theme-color" content="#080d1b">
+
 <style>
-:root{--pink:#ff4f9a;--purple:#7757ff;--ink:#241b36}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 10%,#ffe2f1,transparent 35%),radial-gradient(circle at 90% 90%,#dcd5ff,transparent 40%),#fff7fc;display:grid;place-items:center;padding:18px;overflow-x:hidden}
-.blob{position:fixed;width:190px;height:190px;border-radius:50%;filter:blur(35px);opacity:.35;pointer-events:none;background:#ff8bc4;animation:float 7s ease-in-out infinite}.b1{top:5%;right:-60px}.b2{bottom:2%;left:-70px;background:#9584ff;animation-delay:-3s}@keyframes float{50%{transform:translate(25px,-25px) scale(1.15)}}
-.card{width:min(100%,540px);background:#ffffffdf;backdrop-filter:blur(14px);border:1px solid #fff;border-radius:28px;padding:clamp(20px,5vw,34px);box-shadow:0 22px 65px #583a7b20;position:relative;overflow:hidden}
-.pill{display:inline-block;background:#f4eaff;color:#7953c8;border-radius:99px;padding:7px 12px;font-size:12px;font-weight:800;letter-spacing:.5px}
-h1{font-size:clamp(30px,8vw,46px);line-height:1.05;margin:18px 0 10px;letter-spacing:-1.8px}h1 span{color:var(--pink)}p{color:#756c81;line-height:1.6}.hero{text-align:center}.emoji{font-size:65px;display:block;animation:bob 2s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-8px) rotate(5deg)}}
-button{font:inherit;cursor:pointer;border:0}.primary{width:100%;margin-top:18px;border-radius:16px;padding:16px 20px;color:white;font-weight:850;background:linear-gradient(100deg,var(--pink),var(--purple));box-shadow:0 9px 22px #a45acb38;transition:.2s}.primary:active{transform:scale(.98)}
-.hidden{display:none!important}.topline{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;color:#81758d;margin-bottom:12px}.track{height:9px;background:#eee8f5;border-radius:20px;overflow:hidden;margin-bottom:25px}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:20px;transition:width .4s}
-.question{font-size:clamp(22px,5.5vw,29px);font-weight:850;line-height:1.25;margin:0 0 20px;letter-spacing:-.5px}.answers{display:grid;gap:11px}.answer{width:100%;text-align:left;padding:15px 16px;border:2px solid #eee8f4;border-radius:15px;background:#fff;color:#40364d;font-weight:650;transition:.18s;display:flex;gap:11px;align-items:center}.answer b{width:27px;height:27px;flex:none;border-radius:9px;background:#f4effa;display:grid;place-items:center;color:#8b6ac1;font-size:12px}.answer:hover{border-color:#c5a9ff;transform:translateY(-2px)}.answer.selected{border-color:var(--pink);background:#fff1f7}.answer.selected b{background:var(--pink);color:white}
-.fade{animation:fade .32s ease}@keyframes fade{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
-.result{text-align:center}.score{font-size:72px;font-weight:950;letter-spacing:-5px;background:linear-gradient(90deg,var(--pink),var(--purple));color:transparent;background-clip:text}.small{font-size:12px;color:#958ba0}.confetti{font-size:27px;letter-spacing:5px;margin:10px}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #080d1b url("./bg.png") center/cover fixed;
+    font-family: Arial, sans-serif;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(0,245,212,.12),
+        rgba(10,10,30,.92),
+        rgba(255,60,172,.12)
+    );
+    pointer-events: none;
+}
+
+.menu {
+    position: relative;
+    width: 100%;
+    max-width: 430px;
+    padding: 24px;
+    border: 1px solid #00f5d4;
+    border-radius: 25px;
+    background: rgba(8,15,32,.95);
+    box-shadow:
+        0 0 20px #00f5d455,
+        0 0 60px #00f5d422;
+    animation: appear .7s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(35px) scale(.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 15px;
+    background: linear-gradient(135deg,#00f5d4,#536dfe);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #06101c;
+    font-size: 20px;
+    font-weight: 900;
+    box-shadow: 0 0 20px #00f5d477;
+}
+
+.online {
+    color: #00f5d4;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+h1 {
+    font-size: 25px;
+    line-height: 1.3;
+    margin-top: 25px;
+    text-align: center;
+    text-shadow: 0 0 15px #00f5d477;
+}
+
+h1 span {
+    color: #00f5d4;
+}
+
+.subtitle {
+    text-align: center;
+    color: #8194b7;
+    font-size: 11px;
+    margin: 10px 0 25px;
+    letter-spacing: 2px;
+}
+
+.line {
+    height: 1px;
+    background: linear-gradient(90deg,transparent,#00f5d4,transparent);
+    margin-bottom: 20px;
+}
+
+.feature {
+    background: linear-gradient(120deg,#111e35,#10172a);
+    border: 1px solid #293a59;
+    border-radius: 15px;
+    padding: 16px;
+    margin-bottom: 13px;
+    transition: .3s;
+}
+
+.feature.active {
+    border-color: #00f5d4;
+    box-shadow: 0 0 20px #00f5d433;
+}
+
+.feature-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.feature-name {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: .5px;
+}
+
+.feature-desc {
+    font-size: 10px;
+    color: #8092b2;
+    margin-top: 5px;
+}
+
+.switch {
+    width: 52px;
+    height: 28px;
+    border: none;
+    border-radius: 30px;
+    background: #34415b;
+    padding: 4px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.switch::before {
+    content: "";
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: white;
+    transition: .3s;
+}
+
+.switch.on {
+    background: #00f5d4;
+    box-shadow: 0 0 15px #00f5d4;
+}
+
+.switch.on::before {
+    transform: translateX(24px);
+    background: #071323;
+}
+
+.status {
+    display: none;
+    margin-top: 12px;
+    font-size: 11px;
+    color: #00f5d4;
+}
+
+.status.show {
+    display: block;
+}
+
+.progress {
+    height: 5px;
+    background: #293650;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.progress-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg,#00f5d4,#ff3cac);
+    box-shadow: 0 0 12px #00f5d4;
+    transition: width .08s linear;
+}
+
+.download {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: 0;
+    border-radius: 12px;
+    margin-top: 15px;
+    background: linear-gradient(90deg,#00f5d4,#536dfe);
+    color: #071323;
+    font-weight: 900;
+    font-size: 13px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.download:active {
+    transform: scale(.96);
+}
+
+.footer {
+    text-align: center;
+    color: #667895;
+    font-size: 10px;
+    margin-top: 20px;
+    line-height: 1.7;
+}
+
+.version {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #00f5d455;
+    border-radius: 20px;
+    color: #00f5d4;
+    font-size: 10px;
+}
 </style>
 </head>
-<body><div class="blob b1"></div><div class="blob b2"></div>
-<main class="card">
-<section id="intro" class="hero">
-<span class="pill">BÀI KIỂM TRA ĐỘ THÂN THIẾT™</span>
-<span class="emoji">🐱🤡</span>
-<h1>BẠN HIỂU GÌ<br><span>VỀ THỨC?</span></h1>
-<p>12 câu hỏi mang tính khoa học… của viện nghiên cứu tấu hài. Chọn thật lòng, đừng để tình bạn rạn nứt vì đáp án. 🤑</p>
-<button class="primary" id="start">BẮT ĐẦU KHẢO SÁT 🚀</button>
-<p class="small">Không thu thập thông tin cá nhân • Chơi vui là chính</p>
-</section>
-<section id="quiz" class="hidden">
-<div class="topline"><span id="counter">CÂU 1 / 12</span><span id="percent">0%</span></div>
-<div class="track"><div class="fill" id="fill"></div></div>
-<div id="panel" class="fade"><h2 class="question" id="question"></h2><div class="answers" id="answers"></div></div>
-<button class="primary hidden" id="next">CÂU TIẾP THEO →</button>
-</section>
-<section id="result" class="result hidden">
-<span class="emoji">🏆</span><span class="pill">KẾT QUẢ ĐÃ ĐƯỢC PHÒNG THÍ NGHIỆM DUYỆT</span>
-<h1 id="headline">Bạn là...</h1><div class="score" id="score">100%</div>
-<p id="desc"></p><div class="confetti">🎉 🤡 🤑</div>
-<button class="primary" id="again">LÀM LẠI ĐỂ GỠ GẠC 🔁</button>
-<button class="primary" style="background:#30263e;box-shadow:none" id="share">CHIA SẺ KẾT QUẢ ↗</button>
-<p class="small">Điểm số chỉ để vui, không phải đánh giá tình bạn thật.</p>
-</section>
-</main>
+
+<body>
+
+<div class="menu">
+
+    <div class="header">
+        <div>
+            <div class="online">● HOANGTHUC SYSTEM</div>
+            <div style="font-size:10px;color:#8194b7;margin-top:5px">
+                FREE FIRE CONTROL PANEL
+            </div>
+        </div>
+
+        <div class="logo">HT</div>
+    </div>
+
+    <h1>
+        SETTUP+SEETTING<br>
+        <span>FREE FIRE HOANGTHUC</span>
+    </h1>
+
+    <div class="subtitle">
+        PREMIUM GAMING INTERFACE
+    </div>
+
+    <div class="line"></div>
+
+    <div id="features"></div>
+
+    <button class="download" onclick="downloadMenu()">
+        ↓ TẢI MENU VỀ MÁY
+    </button>
+
+    <div class="footer">
+        <span class="version">VERSION 1.0</span>
+        <br><br>
+        DESIGNED BY HOANGTHUC<br>
+        NEON INTERFACE • ANIMATION • LOADING
+    </div>
+
+</div>
+
 <script>
-const questions=[
-["Thức thích môn thể thao nào nhất?",["Lọ 🏺","Bóng đá ⚽","KTV 🎤","Nằm im xem người khác vận động 🛌"]],
-["Nếu Thức bị bắt cóc, hung thủ đòi tiền chuộc bao nhiêu?",["36 cân ngô 🌽","67 cân khoai 🥔","Six seven bắt mê mê 🗿","Hung thủ chuyển khoản xin gia đình nhận lại 🤣"]],
-["Nếu Thức biến thành con vật thì mày nghĩ sẽ là con gì?",["Sóc… lọ 🐿️","Tuất 🐶","Hợi 🐷","Con lười vì hợp nghề nằm 🦥"]],
-["Khi mày đi xe theo Thức, Thức sẽ làm gì?",["Quét đường 🧹","Max ga 🏍️","Bốc đầu 💀","Rẽ không xi-nhan rồi bảo tại đường cong"]],
-["Khi Thức nhặt được 1 tỷ thì mày nghĩ Thức làm gì?",["Nhân đôi 🤑","Chia cho mày ❤️","Mang đi chơi KTV 🎤","Mua đồ ăn rồi hỏi: còn tiền không?"]],
-["Thức nói “5 phút nữa” thì thực tế là bao lâu?",["Đúng 5 phút ⏱️","15 phút","Một mùa phim","Đợi đến khi tóc bạc 💀"]],
-["Khi đói, Thức biến thành ai?",["Thiên thần 😇","Người bình thường","Trùm cuối game 👹","Thông báo khẩn cấp toàn quốc 🚨"]],
-["Nếu Thức làm lớp trưởng, điều đầu tiên sẽ làm là gì?",["Ổn định lớp","Kiểm tra bài cũ","Cho cả lớp nghỉ","Bổ nhiệm bản thân làm vua 🗿"]],
-["Thức bị gọi dậy lúc 6 giờ sáng sẽ nói gì?",["Dậy ngay!","Thêm 5 phút","Ai phát minh ra buổi sáng vậy?","Tắt nguồn, khởi động lại"]],
-["Nếu Thức mở công ty, công ty tên gì?",["Thức & Co.","Tập đoàn Bá Khí","Ngủ Ngon Limited","Công ty TNHH Hết Cứu 🤡"]],
-["Kỹ năng đặc biệt của Thức là gì?",["Chạy nhanh","Học siêu giỏi","Đang sai vẫn cãi rất tự tin","Biến mất khi đến lượt trả tiền"]],
-["Một câu mô tả Thức chính xác nhất?",["Hiền lành dễ thương","Thiên tài ẩn danh","Bá khí nhưng hơi khùng","Không ai hiểu, kể cả Thức 😭"]]
+const features = [
+    {
+        name: "TĂNG FPS",
+        desc: "FPS BOOST SYSTEM"
+    },
+    {
+        name: "BUFF MƯỢT MÀN",
+        desc: "SMOOTH DISPLAY"
+    },
+    {
+        name: "NHẸ MÀN",
+        desc: "LIGHT SCREEN MODE"
+    },
+    {
+        name: "KHÔNG NỞ TÂM",
+        desc: "CROSSHAIR MODE"
+    }
 ];
-let index=0,answers=[];
-const $=id=>document.getElementById(id);
-function show(id){["intro","quiz","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id))}
-function render(){let q=questions[index];$("counter").textContent=`CÂU ${index+1} / ${questions.length}`;$("percent").textContent=Math.round(index/questions.length*100)+"%";$("fill").style.width=(index/questions.length*100)+"%";$("question").textContent=q[0];$("answers").innerHTML="";$("next").classList.add("hidden");q[1].forEach((a,i)=>{let b=document.createElement("button");b.className="answer";b.innerHTML=`<b>${String.fromCharCode(65+i)}</b><span></span>`;b.querySelector("span").textContent=a;b.onclick=()=>{answers[index]=i;[...$("answers").children].forEach(x=>x.classList.remove("selected"));b.classList.add("selected");$("next").classList.remove("hidden");$("next").textContent=index===questions.length-1?"XEM KẾT QUẢ 🎉":"CÂU TIẾP THEO →"};$("answers").appendChild(b)});$("panel").classList.remove("fade");void $("panel").offsetWidth;$("panel").classList.add("fade")}
-$("start").onclick=()=>{index=0;answers=[];show("quiz");render()};
-$("next").onclick=()=>{if(answers[index]===undefined)return;if(index<questions.length-1){index++;render()}else finish()};
-function finish(){
- $("fill").style.width="100%";$("percent").textContent="100%";
- const outcomes=[
- ["Tri kỷ hệ điều hành lỗi 🤝","Hai đứa cùng một server tấu hài. Cần cách ly khỏi xã hội để tránh lây tiếng cười."],
- ["Bạn thân cấp quốc gia 🇻🇳","Thức vừa nghe tên bạn đã tự động bật chế độ báo động thân quen."],
- ["Đồng bọn bất ổn 🤡","Không cần nói nhiều, chỉ cần nhìn nhau là biết sắp có chuyện."],
- ["Fan cứng có giấy phép 🏅","Bạn hiểu Thức hơn cả hướng dẫn sử dụng của chính Thức."],
- ["Bạn bè hệ tâm linh 🔮","Có kết nối vô hình, nhưng đôi lúc cả hai cùng mất sóng."],
- ["Người quen trong truyền thuyết 👀","Biết vài chuyện về Thức, còn phần lớn chắc nghe kể lại ở căng tin."],
- ["Bạn mới tải bản dùng thử 🧪","Độ hiểu biết đang chạy phiên bản demo. Vui lòng cập nhật thêm dữ liệu."],
- ["Thức cũng không hiểu bạn 😭","Hai bộ não gặp nhau và cùng hiện thông báo: đã xảy ra lỗi."],
- ["Đồng nghiệp của sự báo 💀","Ở cạnh nhau là năng lượng tấu hài tăng 300%, hàng xóm xin được yên tĩnh."],
- ["Bạn là nhân chứng lịch sử 📸","Đã chứng kiến những pha xử lý đi vào lòng đất và vẫn chưa bỏ chạy."],
- ["Tình bạn vượt giới hạn vũ trụ 🚀","NASA đang cân nhắc dùng tình bạn này làm nguồn năng lượng."],
- ["Bạn hiểu Thức… theo cách riêng 🗿","Kết quả khó giải thích, nhưng tự tin là điều không ai có thể lấy đi."]
- ];
- const total=answers.reduce((sum,a,i)=>sum+((a*7+i*3+5)%11+1),0);
- const pct=45+(total%56), pick=(total+answers.reduce((s,a)=>s+a,0))%outcomes.length;
- $("score").textContent=pct+"%";$("headline").textContent=outcomes[pick][0];$("desc").textContent=outcomes[pick][1];show("result")
+
+const container = document.getElementById("features");
+
+features.forEach((feature, index) => {
+
+    const box = document.createElement("div");
+    box.className = "feature";
+
+    box.innerHTML = `
+        <div class="feature-top">
+            <div>
+                <div class="feature-name">${feature.name}</div>
+                <div class="feature-desc">${feature.desc}</div>
+            </div>
+
+            <button class="switch"
+                aria-label="Bật hoặc tắt ${feature.name}"
+                aria-pressed="false">
+            </button>
+        </div>
+
+        <div class="status">
+            <span class="status-text">Đang xử lý 0%</span>
+            <div class="progress">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    `;
+
+    container.appendChild(box);
+
+    const btn = box.querySelector(".switch");
+    const status = box.querySelector(".status");
+    const text = box.querySelector(".status-text");
+    const fill = box.querySelector(".progress-fill");
+
+    let enabled = false;
+    let busy = false;
+
+    btn.addEventListener("click", () => {
+
+        if (busy) return;
+
+        busy = true;
+
+        const target = !enabled;
+        let percent = 0;
+
+        btn.disabled = true;
+        status.classList.add("show");
+
+        text.textContent = target
+            ? "ĐANG BẬT 0%"
+            : "ĐANG TẮT 0%";
+
+        const timer = setInterval(() => {
+
+            percent = Math.min(
+                100,
+                percent + Math.random() * 12 + 4
+            );
+
+            fill.style.width = percent + "%";
+
+            text.textContent =
+                (target ? "ĐANG BẬT " : "ĐANG TẮT ")
+                + Math.floor(percent) + "%";
+
+            if (percent >= 100) {
+
+                clearInterval(timer);
+
+                enabled = target;
+
+                btn.classList.toggle("on", enabled);
+                box.classList.toggle("active", enabled);
+
+                btn.setAttribute(
+                    "aria-pressed",
+                    String(enabled)
+                );
+
+                text.textContent = enabled
+                    ? "✓ ĐÃ BẬT THÀNH CÔNG"
+                    : "✓ ĐÃ TẮT THÀNH CÔNG";
+
+                btn.disabled = false;
+                busy = false;
+
+                setTimeout(() => {
+                    status.classList.remove("show");
+                    fill.style.width = "0%";
+                }, 1800);
+            }
+
+        }, 60);
+    });
+});
+
+function downloadMenu() {
+
+    const content =
+        "<!DOCTYPE html>\n" +
+        document.documentElement.outerHTML;
+
+    const blob = new Blob(
+        [content],
+        {type: "text/html;charset=utf-8"}
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "HOANGTHUC-FREEFIRE.html";
+
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    URL.revokeObjectURL(url);
 }
-$("again").onclick=()=>{$("fill").style.width="0";show("intro")};
-$("share").onclick=()=>{let t=`Tôi đạt ${$("score").textContent} trong bài “Bạn hiểu gì về Thức?” 🤡`;if(navigator.share)navigator.share({title:"Bạn hiểu gì về Thức?",text:t}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(t).then(()=>alert("Đã sao chép kết quả!"));else alert(t)};
-</script></body></html>
+
+if ("serviceWorker" in navigator &&
+    location.protocol.startsWith("http")) {
+
+    navigator.serviceWorker
+        .register("./sw.js")
+        .catch(() => {});
+}
+</script>
+
+</body>
+</html>
