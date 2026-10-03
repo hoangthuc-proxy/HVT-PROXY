@@ -1,288 +1,70 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bạn hiểu gì về Thức?</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bạn hiểu gì về Thức? 🤡</title>
 <style>
-*{box-sizing:border-box}
-body{
- margin:0;min-height:100vh;padding:18px;
- display:flex;justify-content:center;align-items:center;
- background:linear-gradient(135deg,#080014,#240046,#5a189a);
- color:white;font-family:Arial,sans-serif
-}
-.card{
- width:100%;max-width:500px;padding:24px;
- border-radius:24px;background:#ffffff12;
- border:1px solid #ffffff30;
- box-shadow:0 0 35px #a855f755;
- backdrop-filter:blur(12px)
-}
-h1{text-align:center;color:#e0aaff;font-size:27px}
-h2{text-align:center}
-p{text-align:center;color:#ddd;line-height:1.5}
-input{
- width:100%;padding:14px;border-radius:12px;
- border:1px solid #a855f7;background:#160827;
- color:white;font-size:16px;margin:8px 0
-}
-button{
- width:100%;padding:14px;margin:7px 0;
- border:0;border-radius:12px;font-size:15px;
- font-weight:bold;cursor:pointer
-}
-.primary{background:linear-gradient(90deg,#c084fc,#e9d5ff);color:#240046}
-.answer{
- background:#ffffff12;color:white;
- border:1px solid #a855f7;text-align:left
-}
-.answer:hover{background:#7e22ce}
-.answer.selected{background:#9333ea;border:2px solid white}
-.hidden{display:none!important}
-.small{font-size:12px;color:#bbb}
-.item{
- background:#ffffff12;padding:14px;
- border-radius:12px;margin:12px 0;
- overflow-wrap:anywhere
-}
-.item b{color:#e9d5ff}
-.danger{background:#dc2626;color:white}
-.secondary{background:#ffffff20;color:white}
+:root{--pink:#ff4f9a;--purple:#7757ff;--ink:#241b36}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 10%,#ffe2f1,transparent 35%),radial-gradient(circle at 90% 90%,#dcd5ff,transparent 40%),#fff7fc;display:grid;place-items:center;padding:18px;overflow-x:hidden}
+.blob{position:fixed;width:190px;height:190px;border-radius:50%;filter:blur(35px);opacity:.35;pointer-events:none;background:#ff8bc4;animation:float 7s ease-in-out infinite}.b1{top:5%;right:-60px}.b2{bottom:2%;left:-70px;background:#9584ff;animation-delay:-3s}@keyframes float{50%{transform:translate(25px,-25px) scale(1.15)}}
+.card{width:min(100%,540px);background:#ffffffdf;backdrop-filter:blur(14px);border:1px solid #fff;border-radius:28px;padding:clamp(20px,5vw,34px);box-shadow:0 22px 65px #583a7b20;position:relative;overflow:hidden}
+.pill{display:inline-block;background:#f4eaff;color:#7953c8;border-radius:99px;padding:7px 12px;font-size:12px;font-weight:800;letter-spacing:.5px}
+h1{font-size:clamp(30px,8vw,46px);line-height:1.05;margin:18px 0 10px;letter-spacing:-1.8px}h1 span{color:var(--pink)}p{color:#756c81;line-height:1.6}.hero{text-align:center}.emoji{font-size:65px;display:block;animation:bob 2s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-8px) rotate(5deg)}}
+button{font:inherit;cursor:pointer;border:0}.primary{width:100%;margin-top:18px;border-radius:16px;padding:16px 20px;color:white;font-weight:850;background:linear-gradient(100deg,var(--pink),var(--purple));box-shadow:0 9px 22px #a45acb38;transition:.2s}.primary:active{transform:scale(.98)}
+.hidden{display:none!important}.topline{display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:800;color:#81758d;margin-bottom:12px}.track{height:9px;background:#eee8f5;border-radius:20px;overflow:hidden;margin-bottom:25px}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--pink),var(--purple));border-radius:20px;transition:width .4s}
+.question{font-size:clamp(22px,5.5vw,29px);font-weight:850;line-height:1.25;margin:0 0 20px;letter-spacing:-.5px}.answers{display:grid;gap:11px}.answer{width:100%;text-align:left;padding:15px 16px;border:2px solid #eee8f4;border-radius:15px;background:#fff;color:#40364d;font-weight:650;transition:.18s;display:flex;gap:11px;align-items:center}.answer b{width:27px;height:27px;flex:none;border-radius:9px;background:#f4effa;display:grid;place-items:center;color:#8b6ac1;font-size:12px}.answer:hover{border-color:#c5a9ff;transform:translateY(-2px)}.answer.selected{border-color:var(--pink);background:#fff1f7}.answer.selected b{background:var(--pink);color:white}
+.fade{animation:fade .32s ease}@keyframes fade{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}
+.result{text-align:center}.score{font-size:72px;font-weight:950;letter-spacing:-5px;background:linear-gradient(90deg,var(--pink),var(--purple));color:transparent;background-clip:text}.small{font-size:12px;color:#958ba0}.confetti{font-size:27px;letter-spacing:5px;margin:10px}
 </style>
 </head>
-<body>
-
-<div class="card">
-
-<!-- TRANG NGƯỜI CHƠI -->
-<section id="home">
-<h1>💜 BẠN HIỂU GÌ VỀ THỨC?</h1>
-<p>Liệu bạn có thật sự hiểu con người này? 🤡</p>
-<p>8 câu hỏi • 4 đáp án • 1 kết quả bất ngờ</p>
-<input id="playerName" maxlength="30"
-placeholder="Nhập tên hoặc biệt danh của bạn">
-<button class="primary" onclick="startQuiz()">BẮT ĐẦU 🔥</button>
-<p class="small">Kết quả sẽ được gửi cho chủ website.</p>
+<body><div class="blob b1"></div><div class="blob b2"></div>
+<main class="card">
+<section id="intro" class="hero">
+<span class="pill">BÀI KIỂM TRA ĐỘ THÂN THIẾT™</span>
+<span class="emoji">🐱🤡</span>
+<h1>BẠN HIỂU GÌ<br><span>VỀ THỨC?</span></h1>
+<p>12 câu hỏi mang tính khoa học… của viện nghiên cứu tấu hài. Chọn thật lòng, đừng để tình bạn rạn nứt vì đáp án. 🤑</p>
+<button class="primary" id="start">BẮT ĐẦU KHẢO SÁT 🚀</button>
+<p class="small">Không thu thập thông tin cá nhân • Chơi vui là chính</p>
 </section>
-
-<!-- CÂU HỎI -->
 <section id="quiz" class="hidden">
-<p id="progress"></p>
-<h2 id="question"></h2>
-<div id="answers"></div>
-<button id="next" class="primary" onclick="nextQuestion()" disabled>
-CÂU TIẾP THEO →
-</button>
+<div class="topline"><span id="counter">CÂU 1 / 12</span><span id="percent">0%</span></div>
+<div class="track"><div class="fill" id="fill"></div></div>
+<div id="panel" class="fade"><h2 class="question" id="question"></h2><div class="answers" id="answers"></div></div>
+<button class="primary hidden" id="next">CÂU TIẾP THEO →</button>
 </section>
-
-<!-- KẾT QUẢ -->
-<section id="finish" class="hidden">
-<h1>🎉 HOÀN THÀNH!</h1>
-<h2>8/8 câu hỏi</h2>
-<p id="resultText"></p>
-<p>Đáp án của bạn đã được gửi về hệ thống!</p>
-<button class="primary" onclick="location.reload()">CHƠI LẠI 🔄</button>
+<section id="result" class="result hidden">
+<span class="emoji">🏆</span><span class="pill">KẾT QUẢ ĐÃ ĐƯỢC PHÒNG THÍ NGHIỆM DUYỆT</span>
+<h1 id="headline">Bạn là...</h1><div class="score" id="score">100%</div>
+<p id="desc"></p><div class="confetti">🎉 🤡 🤑</div>
+<button class="primary" id="again">LÀM LẠI ĐỂ GỠ GẠC 🔁</button>
+<button class="primary" style="background:#30263e;box-shadow:none" id="share">CHIA SẺ KẾT QUẢ ↗</button>
+<p class="small">Điểm số chỉ để vui, không phải đánh giá tình bạn thật.</p>
 </section>
-
-<!-- ĐĂNG NHẬP ADMIN -->
-<section id="adminLogin" class="hidden">
-<h1>🔐 ADMIN THỨC</h1>
-<p>Chỉ chủ website mới được xem kết quả.</p>
-<input id="adminEmail" type="email" placeholder="Email admin">
-<input id="adminPassword" type="password" placeholder="Mật khẩu">
-<button class="primary" onclick="loginAdmin()">ĐĂNG NHẬP</button>
-<button class="secondary" onclick="showHome()">QUAY LẠI</button>
-<p id="loginMessage"></p>
-</section>
-
-<!-- TRANG QUẢN TRỊ -->
-<section id="dashboard" class="hidden">
-<h1>👑 BẢNG ĐIỀU KHIỂN</h1>
-<h2 id="total">Đang tải...</h2>
-<button class="secondary" onclick="loadResults()">🔄 TẢI LẠI</button>
-<div id="results"></div>
-<button class="danger" onclick="logoutAdmin()">ĐĂNG XUẤT</button>
-</section>
-
-<p class="small" style="margin-top:20px">
-© Bạn hiểu gì về Thức? 💜
-</p>
-</div>
-
-<button onclick="showAdmin()" style="
-position:fixed;bottom:8px;right:8px;width:auto;
-font-size:11px;padding:8px;background:#ffffff12;color:#aaa">
-Admin
-</button>
-
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
+</main>
 <script>
-// THAY THÔNG TIN FIREBASE CỦA BẠN VÀO ĐÂY
-const firebaseConfig = {
- apiKey: "DAN_API_KEY",
- authDomain: "TEN_DU_AN.firebaseapp.com",
- projectId: "TEN_DU_AN",
- storageBucket: "TEN_DU_AN.firebasestorage.app",
- messagingSenderId: "DAN_MESSAGING_SENDER_ID",
- appId: "DAN_APP_ID"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth=firebase.auth();
-const db=firebase.firestore();
-
 const questions=[
-["Thức có thể nhịn ăn trong bao lâu?",[
-"1 ngày 🗿","12 tiếng","30 phút là viết di chúc 💀",
-"Đồ ăn chưa tiêu hóa đã đòi ăn tiếp"]],
-["Nếu Thức biến thành con vật, bạn nghĩ sẽ là con gì?",[
-"Mèo 🐱","Khỉ 🐒","Con báo vì độ báo đời 💀",
-"Con lợn chỉ biết ăn và ngủ 🐷"]],
-["Khi Thức nói '5 phút nữa', thực tế là bao lâu?",[
-"Đúng 5 phút","10 phút","1 tiếng",
-"5 phút của Thức = 5 mùa World Cup ⚽"]],
-["Thức có bao giờ nhận mình sai không?",[
-"Có, rất thường xuyên","Có nhưng phải có bằng chứng",
-"Sai cũng cãi cho bằng được 🗿",
-"Thức không sai, thế giới chưa hiểu Thức 🤡"]],
-["Nếu Thức có 1 tỷ, việc đầu tiên sẽ làm gì?",[
-"Mua nhà 🏠","Mua xe 🏎️","Khao bạn bè mì tôm 🍜",
-"Đếm tiền đến quên thở 🤑"]],
-["Thức lúc đói đáng sợ đến mức nào?",[
-"Hiền như bụt","Hơi cáu","Cắn cả bàn ghế 💀",
-"Boss cuối xuất hiện, chạy ngay 🏃"]],
-["Nếu Thức bị bắt cóc, hung thủ sẽ đòi bao nhiêu tiền?",[
-"1 tỷ","100 triệu","Trả thêm tiền để giữ luôn 💀",
-"Hung thủ xin gia đình đón miễn phí 🤡"]],
-["Câu cửa miệng của Thức là gì?",[
-"Đm 🤡","Vãi 💀","Tao biết mà 😎",
-"Câu nào cũng có, tùy độ báo đời 🗿"]]
+["Thức thích môn thể thao nào nhất?",["Lọ 🏺","Bóng đá ⚽","KTV 🎤","Nằm im xem người khác vận động 🛌"]],
+["Nếu Thức bị bắt cóc, hung thủ đòi tiền chuộc bao nhiêu?",["36 cân ngô 🌽","67 cân khoai 🥔","Six seven bắt mê mê 🗿","Hung thủ chuyển khoản xin gia đình nhận lại 🤣"]],
+["Nếu Thức biến thành con vật thì mày nghĩ sẽ là con gì?",["Sóc… lọ 🐿️","Tuất 🐶","Hợi 🐷","Con lười vì hợp nghề nằm 🦥"]],
+["Khi mày đi xe theo Thức, Thức sẽ làm gì?",["Quét đường 🧹","Max ga 🏍️","Bốc đầu 💀","Rẽ không xi-nhan rồi bảo tại đường cong"]],
+["Khi Thức nhặt được 1 tỷ thì mày nghĩ Thức làm gì?",["Nhân đôi 🤑","Chia cho mày ❤️","Mang đi chơi KTV 🎤","Mua đồ ăn rồi hỏi: còn tiền không?"]],
+["Thức nói “5 phút nữa” thì thực tế là bao lâu?",["Đúng 5 phút ⏱️","15 phút","Một mùa phim","Đợi đến khi tóc bạc 💀"]],
+["Khi đói, Thức biến thành ai?",["Thiên thần 😇","Người bình thường","Trùm cuối game 👹","Thông báo khẩn cấp toàn quốc 🚨"]],
+["Nếu Thức làm lớp trưởng, điều đầu tiên sẽ làm là gì?",["Ổn định lớp","Kiểm tra bài cũ","Cho cả lớp nghỉ","Bổ nhiệm bản thân làm vua 🗿"]],
+["Thức bị gọi dậy lúc 6 giờ sáng sẽ nói gì?",["Dậy ngay!","Thêm 5 phút","Ai phát minh ra buổi sáng vậy?","Tắt nguồn, khởi động lại"]],
+["Nếu Thức mở công ty, công ty tên gì?",["Thức & Co.","Tập đoàn Bá Khí","Ngủ Ngon Limited","Công ty TNHH Hết Cứu 🤡"]],
+["Kỹ năng đặc biệt của Thức là gì?",["Chạy nhanh","Học siêu giỏi","Đang sai vẫn cãi rất tự tin","Biến mất khi đến lượt trả tiền"]],
+["Một câu mô tả Thức chính xác nhất?",["Hiền lành dễ thương","Thiên tài ẩn danh","Bá khí nhưng hơi khùng","Không ai hiểu, kể cả Thức 😭"]]
 ];
-
-let index=0;
-let selected=-1;
-let answers=[];
-
-function hideAll(){
-["home","quiz","finish","adminLogin","dashboard"].forEach(id=>
-document.getElementById(id).classList.add("hidden"));
-}
-
-function showHome(){hideAll();home.classList.remove("hidden")}
-function showAdmin(){hideAll();adminLogin.classList.remove("hidden")}
-
-async function startQuiz(){
-let name=document.getElementById("playerName").value.trim();
-if(!name){alert("Nhập tên trước đã 🤣");return}
-try{
-if(!auth.currentUser)await auth.signInAnonymously();
-window.player=name;
-index=0;answers=[];
-hideAll();quiz.classList.remove("hidden");
-showQuestion();
-}catch(e){alert("Lỗi kết nối Firebase: "+e.message)}
-}
-
-function showQuestion(){
-selected=-1;
-next.disabled=true;
-progress.innerText=`CÂU ${index+1}/8`;
-question.innerText=questions[index][0];
-answersBox=document.getElementById("answers");
-answersBox.innerHTML="";
-questions[index][1].forEach((a,i)=>{
-let b=document.createElement("button");
-b.className="answer";
-b.innerText=String.fromCharCode(65+i)+". "+a;
-b.onclick=()=>{
-selected=i;
-document.querySelectorAll(".answer").forEach(x=>x.classList.remove("selected"));
-b.classList.add("selected");
-next.disabled=false;
-};
-answersBox.appendChild(b);
-});
-}
-
-async function nextQuestion(){
-if(selected<0)return;
-answers.push({
-question:questions[index][0],
-answer:questions[index][1][selected]
-});
-index++;
-if(index<8){showQuestion();return}
-hideAll();finish.classList.remove("hidden");
-resultText.innerText="Cảm ơn "+window.player+" đã tham gia 🤡";
-try{
-await db.collection("submissions").add({
-name:window.player,
-answers:answers,
-createdAt:firebase.firestore.FieldValue.serverTimestamp()
-});
-}catch(e){
-resultText.innerText="Không gửi được kết quả. Hãy thử lại!";
-console.error(e);
-}
-}
-
-async function loginAdmin(){
-let email=adminEmail.value.trim();
-let password=adminPassword.value;
-try{
-await auth.signInWithEmailAndPassword(email,password);
-hideAll();dashboard.classList.remove("hidden");
-loadResults();
-}catch(e){loginMessage.innerText="Sai email hoặc mật khẩu!";}
-}
-
-async function loadResults(){
-results.innerHTML="Đang tải kết quả...";
-try{
-let snap=await db.collection("submissions")
-.orderBy("createdAt","desc").get();
-total.innerText="👥 Tổng lượt tham gia: "+snap.size;
-results.innerHTML="";
-snap.forEach(doc=>{
-let d=doc.data();
-let box=document.createElement("div");
-box.className="item";
-let title=document.createElement("h3");
-title.textContent="👤 "+d.name;
-box.appendChild(title);
-(d.answers||[]).forEach((a,i)=>{
-let p=document.createElement("p");
-p.textContent=(i+1)+". "+a.question;
-let b=document.createElement("b");
-b.textContent="→ "+a.answer;
-p.appendChild(document.createElement("br"));
-p.appendChild(b);
-box.appendChild(p);
-});
-let del=document.createElement("button");
-del.className="danger";
-del.textContent="XÓA KẾT QUẢ";
-del.onclick=async()=>{
-if(confirm("Xóa kết quả của "+d.name+"?")){
-await db.collection("submissions").doc(doc.id).delete();
-loadResults();
-}
-};
-box.appendChild(del);
-results.appendChild(box);
-});
-}catch(e){results.innerText="Không tải được dữ liệu: "+e.message}
-}
-
-async function logoutAdmin(){
-await auth.signOut();
-showHome();
-}
-</script>
-</body>
-</html>
+let index=0,answers=[];
+const $=id=>document.getElementById(id);
+function show(id){["intro","quiz","result"].forEach(x=>$(x).classList.toggle("hidden",x!==id))}
+function render(){let q=questions[index];$("counter").textContent=`CÂU ${index+1} / ${questions.length}`;$("percent").textContent=Math.round(index/questions.length*100)+"%";$("fill").style.width=(index/questions.length*100)+"%";$("question").textContent=q[0];$("answers").innerHTML="";$("next").classList.add("hidden");q[1].forEach((a,i)=>{let b=document.createElement("button");b.className="answer";b.innerHTML=`<b>${String.fromCharCode(65+i)}</b><span></span>`;b.querySelector("span").textContent=a;b.onclick=()=>{answers[index]=i;[...$("answers").children].forEach(x=>x.classList.remove("selected"));b.classList.add("selected");$("next").classList.remove("hidden");$("next").textContent=index===questions.length-1?"XEM KẾT QUẢ 🎉":"CÂU TIẾP THEO →"};$("answers").appendChild(b)});$("panel").classList.remove("fade");void $("panel").offsetWidth;$("panel").classList.add("fade")}
+$("start").onclick=()=>{index=0;answers=[];show("quiz");render()};
+$("next").onclick=()=>{if(answers[index]===undefined)return;if(index<questions.length-1){index++;render()}else finish()};
+function finish(){let n=answers.filter(x=>x!==undefined).length;let pct=Math.round(n/questions.length*100);$("fill").style.width="100%";$("percent").textContent="100%";$("score").textContent=pct+"%";let h,d;if(pct>=85){h="Bạn là tri kỷ hệ điều hành lỗi 🤝";d="Hiểu Thức đến mức đáng nghi. Có khi hai đứa cùng một server tấu hài."}else if(pct>=55){h="Bạn cũng khá thân đó 😎";d="Nắm được vài bí mật, nhưng Thức vẫn còn nhiều bí ẩn khó giải."}else{h="Bạn mới quen Thức hôm qua à? 💀";d="Kiến thức về Thức đang ở mức báo động. Hãy quan sát đối tượng thêm!"} $("headline").textContent=h;$("desc").textContent=d;show("result")}
+$("again").onclick=()=>{$("fill").style.width="0";show("intro")};
+$("share").onclick=()=>{let t=`Tôi đạt ${$("score").textContent} trong bài “Bạn hiểu gì về Thức?” 🤡`;if(navigator.share)navigator.share({title:"Bạn hiểu gì về Thức?",text:t}).catch(()=>{});else if(navigator.clipboard)navigator.clipboard.writeText(t).then(()=>alert("Đã sao chép kết quả!"));else alert(t)};
+</script></body></html>
